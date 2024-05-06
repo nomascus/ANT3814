@@ -658,7 +658,6 @@ Here are a few more advanced Unix commands that are very useful, and when you ha
 ---
 
 
-### [Link to Unix 1 Problem Set](problemsets/Unix_01_problemset.md)
+### [Link to Unix 1 Problem Set](problemsets/https://github.com/nomascus/ANT3814/blob/main/PROBLEM_SETS/Unix1_problemSet.md)
 
 
-<div style="page-break-after: always;"></div>  
