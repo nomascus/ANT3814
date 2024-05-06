@@ -1,13 +1,14 @@
 # ANT 3814 : Séminaire d'anthropologie biologique - Méthodes informatiques en anthropologie moléculaire
 
 ```
- Trimestre:	Été 2024
- Horaire: Lundi & Mercredi 8:30 – 11:30 
- Salle: Pavillon Jean-Brillant B-1203
- Professeur: Joseph Orkin  
- Courriel:  joseph.orkin@umontreal.ca
- Bureau: Pavillon Lionel-Groulx 3072
- Disponibilité: Sur rendez-vous
+ Trimestre:		Été 2024
+ Horaire:		Lundi & Mercredi 8:30 – 11:30 
+ Salle:			Pavillon Jean-Brillant B-1203
+ 
+ Professeur:		Joseph Orkin  
+ Courriel:		joseph.orkin@umontreal.ca
+ Bureau:		Pavillon Lionel-Groulx 3072
+ Disponibilité:		Sur rendez-vous
  ```
 
 ##  Description du cours
