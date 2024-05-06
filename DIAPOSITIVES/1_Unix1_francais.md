@@ -1,4 +1,4 @@
-# ANT3814: Seminar d'anthropologie -  Computational Methods in Molecular Anthropology
+# ANT3814: Seminar d'anthropologie - Méthodes informatiques en anthropologie moléculaire 
 
 ## Cours 1 : La ligne de commande Unix
 
