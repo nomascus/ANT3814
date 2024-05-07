@@ -30,13 +30,13 @@ Nous travaillerons avec des données accessibles au public et des tutoriels en 
 
 ## Horaire Préliminaire (sujet à modification)
 
-| Date | Thème                                                  |
-| ----------- | --------------------------------------- |
+| Date | Thème                |
+| ----------- | ------------------------------ |
 | 6-Mai  | Ligne de commande Unix |
-| 8-Mai  | Boucles Bash et calcul de haute performance |
-| 13-Mai | Expressions régulières |
+| 8-Mai  | Variables bash, awk et sed |
+| 13-Mai | Expressions régulières, boucles bash, et calcul de haute performance|
 | 15-Mai | R et la visualization|
-| 20-Mai | Pas de Cours                                 |
+| 20-Mai | Pas de Cours  |
 | 22-Mai | Phylogénetique |
 | 27-Mai | Introgression |
 | 29-Mai | Diversité génomique |
