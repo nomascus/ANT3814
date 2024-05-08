@@ -1,4 +1,3 @@
-
 # Variables Bash, awk et sed
 
 ## Variables Bash
@@ -13,7 +12,7 @@ band='Les Cowboys Fringants'
 
 geneSequence='GATTACA'
 
-fastaSequence='>HM757933.1|Pan paniscus isolate PPN-8 SRY'
+fastaHeader='>HM757933.1|Pan paniscus isolate PPN-8 SRY'
 
 fastaSequence='AGAGTGAAGCGACCCATGAACGCATTCTTCGTGTGGTCTCGCGATCAGAGGCGCAAGATGGCTCTAGAGAATCC'
 
@@ -34,19 +33,19 @@ student@ant3814:~$ myName = 'Joe'
 myName: command not found
 ```
 
-3) Lorsque vous nommez vos variables, commencez par une lettre minuscule. Pour de nombreux langages de programmation, les variables nommées avec des lettres majuscules ont un sens spécial. Si le nom de votre variable est composé de plusieurs mots, essayez de commencer chaque nouveau mot par une lettre majuscule (cela s'appelle "camel case"). Par exemple, une variable nommée monGroupePréféré est beaucoup plus lisible qu'une variable nommée mongroupepréféré.
+3) Lorsque vous nommez vos variables, commencez par une lettre minuscule. Pour de nombreux langages de programmation, les variables nommées avec des lettres majuscules ont un sens spécial. Si le nom de votre variable est composé de plusieurs mots, essayez de commencer chaque nouveau mot par une lettre majuscule (cela s'appelle "camel case"). Par exemple, une variable nommée monGroupePrefere est beaucoup plus lisible qu'une variable nommée mongroupepréféré.
 
 4) Si vous stockez du texte dans une variable, qu'il s'agisse d'un mot ou de plusieurs mots, vous devez mettre le texte entre guillemets. Sinon, bash pensera que chaque mot séparé par un espace est un nouvel élément d'information.
 
-5) Si vous enregistrez un nombre dans une variable, n'utilisez pas de guillemets. Dans l'exemple ci-dessus, bash reconnaîtra la variable joursRestants comme un nombre et vous permettra d'effectuer des opérations mathématiques avec elle. Cependant, si vous avez enregistré la variable comme ceci :  ```daysLeft='9'```, alors bash pensera que c'est du texte, pas un nombre, et la variable ne fonctionnera que dans les programmes qui fonctionnent sur du texte. 
+5) Si vous enregistrez un nombre dans une variable, n'utilisez pas de guillemets. Dans l'exemple ci-dessus, bash reconnaîtra la variable daysLeft comme un nombre et vous permettra d'effectuer des opérations mathématiques avec elle. Cependant, si vous avez enregistré la variable comme ceci :  ```daysLeft='9'```, alors bash pensera que c'est du texte, pas un nombre, et la variable ne fonctionnera que dans les programmes qui fonctionnent sur du texte. 
 
 C'est le moment idéal pour mentionner comment les variables scalaires peuvent être classées en bash. 
 
-**Chaînes de caractères** : séquences de caractères, entre guillemets simples (' ') ou doubles (" "). Les chaînes de caractères sont utilisées pour stocker des données textuelles. Exemple : `myName="Joe"`.   Si vous avez un mélange de chiffres et de lettres dans votre variable, Bash la considérera toujours comme une chaîne de caractères. Par exemple, ```fastaHeader='>Pan panascus|AMY1|AN234.2456.A'``` est toujours une seule chaîne de caractères enregistrée dans une variable scalaire. 
+**Chaînes de caractères (strings)** : séquences de caractères, entre guillemets simples (' ') ou doubles (" "). Les chaînes de caractères sont utilisées pour stocker des données textuelles. Exemple : `myName="Joe"`.   Si vous avez un mélange de chiffres et de lettres dans votre variable, Bash la considérera toujours comme une chaîne de caractères. Par exemple, ```fastaHeader='>Pan panascus|AMY1|AN234.2456.A'``` est toujours une seule chaîne de caractères enregistrée dans une variable scalaire. 
 
-**Entiers** : Bash peut gérer l'arithmétique entière, mais contrairement à d'autres langages de programmation, techniquement Bash n'a pas de type de données entier distinct. Cependant, les variables contenant des entiers sont traitées comme des chaînes de caractères sauf indication contraire. Exemple : `daysLeft=9`
+**Entiers (integers)** : Bash peut gérer l'arithmétique entière, mais contrairement à d'autres langages de programmation, techniquement Bash n'a pas de type de données entier distinct. Cependant, les variables contenant des entiers sont traitées comme des chaînes de caractères sauf indication contraire. Exemple : `daysLeft=9`
 
-**Nombres à virgule flottante** : les nombres non entiers (c'est-à-dire ceux avec des décimales et des chiffres significatifs) sont généralement appelés nombres à virgule flottante ou floats dans d'autres langages. En Bash, l'arithmétique en virgule flottante n'est pas prise en charge nativement. Les opérations arithmétiques sont généralement limitées à l'arithmétique entière. Cependant, vous pouvez effectuer des opérations en virgule flottante en utilisant des outils ou des commandes externes, tels que `awk`, `bc` ou `printf`, dont nous parlerons plus tard.
+**Nombres à virgule flottante (floating point numbers)** : les nombres non entiers (c'est-à-dire ceux avec des décimales et des chiffres significatifs) sont généralement appelés nombres à virgule flottante ou floats dans d'autres langages. En Bash, l'arithmétique en virgule flottante n'est pas prise en charge nativement. Les opérations arithmétiques sont généralement limitées à l'arithmétique entière. Cependant, vous pouvez effectuer des opérations en virgule flottante en utilisant des outils ou des commandes externes, tels que `awk`, `bc` ou `printf`, dont nous parlerons plus tard.
 
 6) Il est important de choisir un nom approprié pour votre variable. "Choisir de bons noms de variables pour les objets que vous nommez vous-même est très important. Ne nommez pas vos variables des choses comme  `items`  ou  `my_list`  ou  `data`  ou  `var`. Sauf pour un code très simple, ou si vous tracez un graphique, ne nommez pas vos objets  `x`  ou  `y`  non plus. Tous ces exemples de noms ne sont pas descriptifs de quel type de données vous trouverez dans la variable ou l'objet. Pire encore est de nommer une variable qui contient des noms de gènes comme  `sequences`. Pourquoi est-ce une si mauvaise idée ? Pensez à ce qui se passerait si vous remplissiez votre voiture dans un magasin étiqueté 'station-service' qui vendait du limonade. En informatique, les noms doivent toujours décrire avec précision l'objet auquel ils sont attachés. Cela réduit la possibilité de bugs dans votre code, le rend beaucoup plus facile à comprendre si vous y revenez après six mois ou si vous partagez votre code avec quelqu'un, et permet d'écrire plus rapidement du code qui fonctionne correctement. Même si cela prend un peu de temps et d'efforts pour trouver un bon nom pour un objet, cela évitera tellement de problèmes à l'avenir !" - [PFB 2023](https://github.com/prog4biol/pfb2023/blob/master/pfb.md/#python-1)“
 
@@ -346,13 +345,14 @@ poe
 raisin
 orange
 ```
-Une chose particulièrement puissante à propos de sed est que nous pouvons également utiliser des **caractères génériques (wildcards)**. Nous en parlerons plus en détail lorsque nous aborderons les expressions régulières, mais pour l'instant, sachez que le point ```.``` est le caractère générique pour "n'importe quel caractère qui n'est pas un espace" et le signe plus ```*``` signifie "zéro ou plusieurs occurrences des caractères précédents". Ainsi, ```.*``` signifie tout, de cette position dans la ligne jusqu'à la fin de la ligne.
+Une chose particulièrement puissante à propos de sed est que nous pouvons également utiliser des **caractères génériques (wildcards)**. Nous en parlerons plus en détail lorsque nous aborderons les expressions régulières, mais pour l'instant, sachez que le point ```.``` est le caractère générique pour "n'importe quel caractère qui n'est pas un espace" et le signe astérisque ```*``` signifie "zéro ou plusieurs occurrences des caractères précédents". Ainsi, ```.*``` signifie tout, de cette position dans la ligne jusqu'à la fin de la ligne.
 
 ```
 student@ant3814:~/COURS/FICHIERS$ sed 's/o.*//' file4.txt
 framb
 p
 raisin
+range
 ```
 Regroupons tout cela pour terminer l'édition de notre VCF.
 
