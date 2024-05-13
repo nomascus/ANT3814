@@ -173,6 +173,10 @@ student@ant3814:~$
 echo 'Ce text est dans le mauvais ordre' | perl -lpe 's/mauvais/bon/ ' 
 ```
 
+```
+student@ant3814:~$ 
+echo 'Ce text est dans le mauvas ordre' | perl -lpe 's/mauvais/bon/ ' 
+```
 
 ### Multiple matches
 

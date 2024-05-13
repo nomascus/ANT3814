@@ -169,9 +169,14 @@ Commençons par une chaîne de nucléotides et recherchons quelques motifs. Tout
  
 ```
 student@ant3814:~$ 
-echo 'Ce ordre est dans le bon text' | perl -lpe 's/(ordre)(.+)(bon)// ' 
+echo 'Ce texte est dans le mauvais ordre' | perl -lpe 's/mauvais/bon/ ' 
 
 ```
+
+```
+student@ant3814:~$ 
+echo 'Ce texte est dans le mauvas ordre' | perl -lpe 's/mauvais/bon/ ' 
+
 ### Correspondances multiples
 
 Parfois, nous avons plus d'une instance de texte correspondant dans une chaîne
