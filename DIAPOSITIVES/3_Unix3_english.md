@@ -170,7 +170,7 @@ Let's start with a string of nucleotides and search for some motifs.  Just like 
  
 ```
 student@ant3814:~$ 
-echo 'Ce text est dans le mauvais ordre' | $perl -lpe 's/mauvais/bon/ ' 
+echo 'Ce text est dans le mauvais ordre' | perl -lpe 's/mauvais/bon/ ' 
 ```
 
 
