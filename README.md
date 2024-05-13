@@ -34,8 +34,8 @@ Nous travaillerons avec des données accessibles au public et des tutoriels en 
 | ----------- | ------------------------------ |
 | 6-Mai  | Ligne de commande Unix |
 | 8-Mai  | Variables bash, awk et sed |
-| 13-Mai | Expressions régulières et boucles bash|
-| 15-Mai | Calul de haute performance |
+| 13-Mai | Expressions régulières|
+| 15-Mai | Boucles bash et calul de haute performance |
 | 20-Mai | Pas de Cours  |
 | 22-Mai | R et la visualization |
 | 27-Mai | Phylogénetique et introgression
