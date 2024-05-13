@@ -278,3 +278,6 @@ Link to today's problem set:
 
 English: [Unix3 problem set](https://github.com/nomascus/ANT3814/blob/main/PROBLEM_SETS/Unix3_problemSet_English.md)  
 French: [Unix3 problem set](https://github.com/nomascus/ANT3814/blob/main/PROBLEM_SETS/Unix3_problemSet_Francais.md)
+
+Useful website for testing regular expressions
+https://regex101.com/
