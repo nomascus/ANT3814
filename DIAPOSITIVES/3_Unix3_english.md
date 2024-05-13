@@ -42,8 +42,8 @@ However, there is a much more powerful way of manipulating text on the command l
 |-|-|-|-|
 Character|[ ]| any one of the characters in the brackets| /[AtG]/
 Character|[^]| NOT any character in the brackets|/[^AtG]/
-Character|[a-z]|an ordinary lower case character|/GAT[A-Z]ACA/
-Character|[A-Z]|an ordinary upper case character|/GAT[A-Z]ACA/
+Character|[a-z]|an ordinary lower case letter|/GAT[A-Z]ACA/
+Character|[A-Z]|an ordinary upper case letter|/GAT[A-Z]ACA/
 Character|\d| any single digit [0-9]| /file\d\.txt/
 Character|\D| NOT a digit [^0-9]|/\D\D\D\D\d.txt/
 Character|\w| any single word character [A-Za-z0-9_]|/file3\.\wxt/
@@ -70,7 +70,7 @@ Remember that when searching, we will use the two forward slash structure
 
 ```/^\d/d/d/-d\d\d\d/``` would match 555-1212 also 555-121212
  
-```/^\d/d/d/-d\d\d\d/$``` would only match a seven digit phone number like 555-1212 (three digits followed by a dash and four digits)
+```/^\d/d/d/-d\d\d\d$/``` would only match a seven digit phone number like 555-1212 (three digits followed by a dash and four digits)
 
 ### Regular expression quantifiers
 
@@ -156,16 +156,24 @@ What if we added added a space after la queue?
 
 ## Regular expressions at the command line with perl
 
-Lets try a few of these out. Rather than using ```sed``` which is a bit limited in it's functionality, we can use another more robust language called **perl**. Perl is an extremely powerful coding language that used to be more common, but is mostly being replaced with **python**. Nonetheless, perl is still the best language for regular expressions and easily called from the command line. If we want to stream text into perl to use regular expressions type, ```perl -lpe ' '``` The '-lpe' options tells perl that the incoming command should be executed ( e ) line by line ( l ) and printed ( p ). 
+Lets try a few of these out. Rather than using ```sed``` which is a bit limited in it's functionality, we can use another more robust language called **perl**. Perl is an extremely powerful coding language that used to be more common, but is mostly being replaced with **python**. Nonetheless, perl is still the best language for regular expressions and easily called from the command line. If we want to stream text into perl to use regular expressions type, ```perl -lpe ' '``` The '-lpe' options tells perl that the incoming command should be executed ( e ) line by line ( l ) and printed ( p ). Be careful though! The ```-lpe``` option will print all lines in the file (even those that dont't match) changing only those that you tell it to. A safer way is to tell perl to use the ``` -lne``` option that does not automatically print all lines. If you want  to print only the lines that match the conditions, you can tell perl to "print if", using the following structure:
 
+For matching:  ```perl -lne ''print if //' file.txt```
+For substitution:  ```perl -lne ''print if s///' file.txt```
+
+Instead of putting the file at the end, you can also cat the file or echo the text into perl like this
+
+For matching:  ```cat file.txt | perl -lne ''print if //' ```
+For substitution:  ```echo 'here is some text' |perl -lne 'print if s///' ```
+ 
 Let's start with a string of nucleotides and search for some motifs.  Just like sed, perl uses forward slashes to separate the text to search and replace. 
  
-
 ```
 student@ant3814:~$ 
-echo 'Ce ordre est dans le mauvais text' | $perl -lpe 's/(ordre)(.+)(mauvais)// ' 
-
+echo 'Ce text est dans le mauvais ordre' | $perl -lpe 's/mauvais/bon/ ' 
 ```
+
+
 ### Multiple matches
 
 Sometimes we have more than one instance of matching text in a string
