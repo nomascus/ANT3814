@@ -66,11 +66,11 @@ Rappelez-vous que lors de la recherche, nous utiliserons la structure des deux b
 
 ```/\w\w\w\d\d\d/``` correspondrait à ANT3814 et ANT2440
 
-```/\d/d/d/-d\d\d\d/``` correspondrait à un numéro de téléphone comme 555-1212. Il correspondrait également à un modèle comme celui-ci 5555-1212, mais pas à un modèle comme celui-ci 514-555-1212
+```/\d\d\d-d\d\d\d/``` correspondrait à un numéro de téléphone comme 555-1212. Il correspondrait également à un modèle comme celui-ci 5555-1212, mais pas à un modèle comme celui-ci 514-555-1212
 
-```/^\d/d/d/-d\d\d\d/``` correspondrait à 555-1212 ainsi qu'à 555-121212
+```/^\d\d\d-d\d\d\d/``` correspondrait à 555-1212 ainsi qu'à 555-121212
  
-```/^\d/d/d/-d\d\d\d$/``` ne correspondrait qu'à un numéro de téléphone à sept chiffres comme 555-1212 (trois chiffres suivis d'un tiret et de quatre chiffres)
+```/^\d\d\d-d\d\d\d$/``` ne correspondrait qu'à un numéro de téléphone à sept chiffres comme 555-1212 (trois chiffres suivis d'un tiret et de quatre chiffres)
 
 ### Quantifieurs d'expressions régulières
 

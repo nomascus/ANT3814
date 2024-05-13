@@ -66,11 +66,11 @@ Remember that when searching, we will use the two forward slash structure
 
 ```/\w\w\w\d\d\d/``` would match ANT3814 and ANT2440
 
-```/\d/d/d/-d\d\d\d/``` would match a phone number like 555-1212. It would also match a pattern like this 5555-1212, but not one like this 514-555-1212
+```/\d\d\d-d\d\d\d/``` would match a phone number like 555-1212. It would also match a pattern like this 5555-1212, but not one like this 514-555-1212
 
-```/^\d/d/d/-d\d\d\d/``` would match 555-1212 also 555-121212
+```/^\d\d\d-d\d\d\d/``` would match 555-1212 also 555-121212
  
-```/^\d/d/d/-d\d\d\d$/``` would only match a seven digit phone number like 555-1212 (three digits followed by a dash and four digits)
+```/^\d\d\d-d\d\d\d$/``` would only match a seven digit phone number like 555-1212 (three digits followed by a dash and four digits)
 
 ### Regular expression quantifiers
 
