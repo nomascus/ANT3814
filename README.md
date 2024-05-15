@@ -32,10 +32,10 @@ Nous travaillerons avec des données accessibles au public et des tutoriels en 
 
 | Date | Thème                |
 | ----------- | ------------------------------ |
-| 6-Mai  | Ligne de commande Unix |
-| 8-Mai  | Variables bash, awk et sed |
-| 13-Mai | Expressions régulières|
-| 15-Mai | Boucles bash et calul de haute performance |
+| 6-Mai  | UNIX 1: Ligne de commande Unix |
+| 8-Mai  | UNIX 2: Variables bash, awk et sed |
+| 13-Mai | UNIX 3: Expressions régulières|
+| 15-Mai | UNIX 4: Boucles bash |
 | 20-Mai | Pas de Cours  |
 | 22-Mai | R et la visualisation |
 | 27-Mai | Phylogénetique et introgression
