@@ -32,20 +32,20 @@ Bonjour Sarah
 
 C'est mieux, mais nous écrivons toujours cinq commandes séparées avec beaucoup de texte répété. Ne serait-il pas génial de simplifier cela pour dire à bash d'imprimer "Bonjour" devant une liste de noms ? C'est là que nous pouvons utiliser une boucle for, qui a la structure suivante :
 
-**for une nouvelleVariable dans une liste ; faire une commande à la $newVariable ; fait**
+**for une nouvelleVariable dans une liste ; do une commande à la $newVariable ; done**
 
 |Action | Code|
 |---|--|
 |type de boucle|for |
 |variable | prenom|
-|emplacement|dans|
+|emplacement|in|
 |liste|Charlotte Joe Jimmy Mikerlange Sarah|
-|début|faire;|
+|début|do;|
 |commande| echo $prenom;|
-|fin|fait;|
+|fin|done;|
 
 ```
-student@ant3814:~$ for prenom in Charlotte Joe Jimmy Mikerlange Sarah; do echo "Bonjour $prenom"; fait
+student@ant3814:~$ for prenom in Charlotte Joe Jimmy Mikerlange Sarah; do echo "Bonjour $prenom"; done
 Bonjour Charlotte
 Bonjour Joe
 Bonjour Jimmy
@@ -80,7 +80,7 @@ Dans ce système de classement, le caractère point vient avant les chiffres, do
 Rendons les noms de fichiers plus faciles à classer en ajoutant un zéro aux noms des 9 premiers fichiers. Nous pouvons le faire avec une boucle for qui liste les nombres de 1 à 9 :
 
 ```
-for number in 1 2 3 4 5 6 7 8 9; do mv file${number}.txt file0${number}.txt ; fait
+for number in 1 2 3 4 5 6 7 8 9; do mv file${number}.txt file0${number}.txt ; done
 ```
 
 Attention, cependant ! Créer une boucle qui renomme vos fichiers est dangereux, car vous pouvez accidentellement mélanger tous vos fichiers ou les effacer en cas d'erreur dans votre code. **Testez toujours votre boucle en ajoutant echo** à la commande d'abord pour voir si le code est correct.
@@ -120,7 +120,7 @@ for number in {1..9}; do echo "mv file${number}.txt file0${number}.txt" ; done
 Un des types de boucles les plus puissants est la boucle while, car elle vous permet de dire à bash de faire quelque chose tant qu'une condition est vraie. Le plus souvent, cela est utilisé pour lire un fichier et exécuter une commande en fonction des informations contenues dans chaque ligne. 
 
 ```
-while [condition est vraie]; do 
+while condition est vraie; do 
     code à exécuter; 
 done
 ```
@@ -448,3 +448,5 @@ N'oubliez pas de passer en **Mode Commande** avec la touche `<esc>`
 | `:set nonumber` | désactiver les numéros de ligne |  
 | `:/[texte de recherche]` | rechercher [ce texte] dans votre fichier |  
 | `n` | aller à l'occurrence suivante de votre recherche |  
+
+[Unix4 ProblemSet](https://raw.githubusercontent.com/nomascus/ANT3814/main/PROBLEM_SETS/Unix4_problemSet_Francais.md)
