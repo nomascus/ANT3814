@@ -3,7 +3,7 @@
 ```
  Trimestre:		Été 2024
  Horaire:		Lundi & Mercredi 8:30 – 11:30 
- Salle:			Pavillon Jean-Brillant B-1203
+ Salle:			Pavillon Jean-Brillant B-1204
  
  Professeur:		Joseph Orkin  
  Courriel:		joseph.orkin@umontreal.ca
