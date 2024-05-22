@@ -7,8 +7,8 @@ Il est maintenant temps d’essayer de construire votre propre graphique ! Crée
 
 Paramètres à prendre en compte pour répondre à cette question:
 
-données	géométrie	valeurs x	valeurs y
-penguins		geom_point	bill_length_mm	flipper_length_mm
+données		géométrie	valeurs x	valeurs y
+penguins	geom_point	bill_length_mm	flipper_length_mm
 
 
 3. Y a-t-il une relation entre le sex et le poids corporelle?
@@ -16,8 +16,8 @@ penguins		geom_point	bill_length_mm	flipper_length_mm
 
 Paramètres à prendre en compte pour répondre à cette question:
 
-données	géométrie	valeurs x	valeurs y
-penguins		geom_boxplot	sex	body_mass_g
+données		géométrie	valeurs x	valeurs y
+penguins	geom_boxplot	sex		body_mass_g
 
 Noubliez pas l’Esthétique (mettre une couleur par espèce), si utile!
 
