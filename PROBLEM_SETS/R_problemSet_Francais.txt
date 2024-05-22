@@ -1,0 +1,24 @@
+Cours 5: R et la visualisation
+
+Il est maintenant temps d’essayer de construire votre propre graphique ! Créez un ggplot pour répondre aux questions suivantes:
+
+1. Y a-t-il une relation entre la longueur des becs et la longueur des nageoires des pingouins?
+2. La longueur des becs augmente-t-elle avec celle des nageoires?
+
+Paramètres à prendre en compte pour répondre à cette question:
+
+données	géométrie	valeurs x	valeurs y
+penguins		geom_point	bill_length_mm	flipper_length_mm
+
+
+3. Y a-t-il une relation entre le sex et le poids corporelle?
+4. Est-ce que la relation est pareil dans les trois especes?
+
+Paramètres à prendre en compte pour répondre à cette question:
+
+données	géométrie	valeurs x	valeurs y
+penguins		geom_boxplot	sex	body_mass_g
+
+Noubliez pas l’Esthétique (mettre une couleur par espèce), si utile!
+
+5. Manipulez le jeu de données penguins_raw.csv afin d’arriver au format de jeu de données penguins.csv. Les operations de tidyr et dplyr seraient utiles…
