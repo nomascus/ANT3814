@@ -38,7 +38,7 @@ Nous travaillerons avec des données accessibles au public et des tutoriels en 
 | 15-Mai | UNIX 4: Boucles bash |
 | 20-Mai | Pas de Cours  |
 | 22-Mai | R et la visualisation |
-| 27-Mai | journée de révision de l'ensemble des problèmes
+| 27-Mai | Journée de révision de l'ensemble des problèmes
 | 29-Mai | Phylogénetique et introgression
 | 3-Juin | Diversité génomique et structure de la population |
 | 5-Juin | Sélection naturelle |
