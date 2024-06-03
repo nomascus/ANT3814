@@ -68,6 +68,7 @@ hyphy relax --alignment  ADH_nucleotide_RELAX_alignment.label.50Plus.nex --test 
 
 ```
 git clone https://github.com/veg/hyphy.git
+cd hyphy
 cmake .
 make MP
 sudo make install
@@ -81,7 +82,7 @@ Download the ADH_IV files from the course website
 mkdir ADH_IV
 cd ADH_IV
 
-wget https://raw.githubusercontent.com/nomascus/ANT3814/main/FILES/RELAX/ADH_nucleotide_RELAX_alignment50Plus.label
+wget https://raw.githubusercontent.com/nomascus/ANT3814/main/FILES/RELAX/ADH_nucleotide_RELAX_alignment.label.50Plus.nex
 ```
 
 1. This data is in nexus format. What are the three main kinds of information in this file?
