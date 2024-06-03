@@ -81,7 +81,8 @@ Téléchargez les fichiers ADH_IV à partir du site web du cours
 mkdir ADH_IV
 cd ADH_IV
 
-wget https://raw.githubusercontent.com/nomascus/ANT3814/main/FILES/RELAX/ADH_nucleotide_RELAX_alignment50Plus.label
+wget https://raw.githubusercontent.com/nomascus/ANT3814/main/FILES/RELAX/ADH_nucleotide_RELAX_alignment.label.50Plus.nex
+
 ```
 
 1. Ces données sont au format nexus. Quelles sont les trois principales sortes d'informations dans ce fichier?
