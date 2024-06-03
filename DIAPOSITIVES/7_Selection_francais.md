@@ -63,10 +63,11 @@ hyphy relax --alignment ADH_nucleotide_RELAX_alignment.label.50Plus.nex --test F
 
 # Série de problèmes
 
-> installez hyphy sur la machine virtuelle
+> installez hyphy sur la machine virtuelle. Exécutez chaque commande une ligne à la fois !
 
 ```
 git clone https://github.com/veg/hyphy.git
+cd hyphy
 cmake .
 make MP
 sudo make install
