@@ -39,9 +39,9 @@ Nous travaillerons avec des données accessibles au public et des tutoriels en 
 | 20-Mai | Pas de Cours  |
 | 22-Mai | R et la visualisation |
 | 27-Mai | Journée de révision de l'ensemble des problèmes
-| 29-Mai | Phylogénetique et introgression
-| 3-Juin | Diversité génomique et structure de la population |
-| 5-Juin | Sélection naturelle |
+| 29-Mai | Phylogénetique 
+| 3-Juin | Sélection naturelle
+| 5-Juin | Diversité génomique et structure de la population |
 | 10-Juin | Microbiomes |
 | 17-Juin | Atelier du projet final |
 | 19-Juin | Présentation du projet final|
