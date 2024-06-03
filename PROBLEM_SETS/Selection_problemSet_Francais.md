@@ -35,7 +35,7 @@ wget https://raw.githubusercontent.com/nomascus/ANT3814/main/FILES/RELAX/ADH_nuc
 mkdir MORC2 
 cd MORC2
 wget https://raw.githubusercontent.com/nomascus/ANT3814/main/FILES/RELAX/MORC2_sim_muscleco_Name.fasta
-https://raw.githubusercontent.com/nomascus/ANT3814/main/FILES/RELAX/MORC2_species.nwk
+wget https://raw.githubusercontent.com/nomascus/ANT3814/main/FILES/RELAX/MORC2_species.nwk
 ```
 6. Exécutez aBSREL avec l'alignement de codons MORC2 et l'arbre des primates. Que fait ce gène? Y a-t-il des preuves de sélection positive sur certaines branches?
 
