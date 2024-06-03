@@ -42,7 +42,8 @@ Nous travaillerons avec des données accessibles au public et des tutoriels en 
 | 29-Mai | Phylogénetique 
 | 3-Juin | Sélection naturelle
 | 5-Juin | Diversité génomique et structure de la population |
-| 10-Juin | Microbiomes |
+| 10-Juin | Introgression |
+| 12-Juin | Microbiomes|
 | 17-Juin | Atelier du projet final |
 | 19-Juin | Présentation du projet final|
 
