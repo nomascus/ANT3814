@@ -83,7 +83,7 @@ Remarquez ici que l'arbre semble un peu étrange. C'est parce qu'il s'agit d'un 
 Il y a encore une chose que nous devons faire. Nous avons trouvé les divisions entre les taxons avec notre arbre, mais nous ne savons pas à quel point ces divisions sont fiables. Devons-nous leur faire confiance ? Nous pouvons tester la fiabilité d'une phylogénie basée sur des séquences en utilisant un processus statistique appelé **bootstrapping**. Le bootstrapping remélange les données d'entrée plusieurs fois et tire aléatoirement différentes espèces pour créer un nouvel alignement remélangé, qu'IQTREE utilise ensuite pour construire un nouvel arbre. Ce processus est répété plusieurs fois jusqu'à ce que nous obtenions un score indiquant combien de fois chaque branche de notre arbre initial est trouvée dans les arbres bootstrap répliqués. Les valeurs bootstrap dans un arbre phylogénétique indiquent que sur 100, combien de fois la même branche est observée en répétant la génération d'un arbre phylogénétique sur un ensemble de données rééchantillonné. Lançons 1000 réplicats bootstrap.
 
 ```
-student@ant3814:~/PHYLO$ iqtree2 -s primate_mitogenomes.aligned.gb.fasta -m MFP -b 1000 --undo
+student@ant3814:~/PHYLO$ iqtree2 -s primate_mitogenomes.aligned.gb.fasta -m MFP -B 1000 --undo
 ```
 
 Ici, l'option --undo indique que nous voulons utiliser l'arbre précédent et simplement changer certaines options dans la commande. Maintenant, ouvrons le nouvel arbre dans figtree et visualisons les étiquettes bootstrap sur les branches.

@@ -78,7 +78,7 @@ There is one more thing we need to do. We have found the splits between taxa wit
 
 
 ```
-student@ant3814:~/PHYLO$ iqtree2 -s primate_mitogenomes.aligned.gb.fasta -m MFP -b 1000 --undo
+student@ant3814:~/PHYLO$ iqtree2 -s primate_mitogenomes.aligned.gb.fasta -m MFP -B 1000 --undo
 ```
 
 Here the --undo option indicates that we want to use the previous tree and just change some options in the command. Now let's open the new tree in figtree and view the bootstrap labels on the branches. 
