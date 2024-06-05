@@ -30,20 +30,20 @@ Nous travaillerons avec des données accessibles au public et des tutoriels en 
 
 ## Horaire Préliminaire (sujet à modification)
 
-| Date | Thème                |
-| ----------- | ------------------------------ |
-| 6-Mai  | UNIX 1: Ligne de commande Unix |
-| 8-Mai  | UNIX 2: Variables bash, awk et sed |
-| 13-Mai | UNIX 3: Expressions régulières|
-| 15-Mai | UNIX 4: Boucles bash |
+| Date | Ensemble des Problèms| Thème                |
+| ----------- | -| ------------------------------ |
+| 6-Mai  | 1 | UNIX 1: Ligne de commande Unix |
+| 8-Mai  | 2 | UNIX 2: Variables bash, awk et sed |
+| 13-Mai | 3 | UNIX 3: Expressions régulières|
+| 15-Mai | 4 | UNIX 4: Boucles bash |
 | 20-Mai | Pas de Cours  |
-| 22-Mai | R et la visualisation |
+| 22-Mai | 5 | R et la visualisation |
 | 27-Mai | Journée de révision de l'ensemble des problèmes
-| 29-Mai | Phylogénetique 
-| 3-Juin | Sélection naturelle
-| 5-Juin | Introgression |
-| 10-Juin | Diversité génomique et structure de la population |
-| 12-Juin | Microbiomes|
+| 29-Mai | 6 | Phylogénetique 
+| 3-Juin | 7 | Sélection naturelle
+| 5-Juin | 8 | Introgression |
+| 10-Juin | 9 | Diversité génomique et structure de la population |
+| 12-Juin | 10 | Microbiomes|
 | 17-Juin | Atelier du projet final |
 | 19-Juin | Présentation du projet final|
 
