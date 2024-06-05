@@ -36,16 +36,16 @@ Nous travaillerons avec des données accessibles au public et des tutoriels en 
 | 8-Mai  | 2 | UNIX 2: Variables bash, awk et sed |
 | 13-Mai | 3 | UNIX 3: Expressions régulières|
 | 15-Mai | 4 | UNIX 4: Boucles bash |
-| 20-Mai | Pas de Cours  |
+| 20-Mai | | Pas de Cours  |
 | 22-Mai | 5 | R et la visualisation |
-| 27-Mai | Journée de révision de l'ensemble des problèmes
+| 27-Mai | | Journée de révision de l'ensemble des problèmes
 | 29-Mai | 6 | Phylogénetique 
 | 3-Juin | 7 | Sélection naturelle
 | 5-Juin | 8 | Introgression |
 | 10-Juin | 9 | Diversité génomique et structure de la population |
 | 12-Juin | 10 | Microbiomes|
-| 17-Juin | Atelier du projet final |
-| 19-Juin | Présentation du projet final|
+| 17-Juin | | Atelier du projet final |
+| 19-Juin | | Présentation du projet final|
 
 ## Autres considérations
 
