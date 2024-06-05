@@ -46,7 +46,7 @@ cd LOGICIELS
 git clone https://github.com/DReichLab/AdmixTools.git
 cd AdmixTools
 sudo apt-get install libopenblas-dev
-cd SRC
+cd src
 make clobber; make all; make install
 cp /etc/R/Renviron ~/.Renviron
 echo "PATH=/home/student/LOGICIELS/ADMIXTOOLS/bin" >> ~/.Renviron
