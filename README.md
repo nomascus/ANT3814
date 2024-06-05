@@ -41,8 +41,8 @@ Nous travaillerons avec des données accessibles au public et des tutoriels en 
 | 27-Mai | Journée de révision de l'ensemble des problèmes
 | 29-Mai | Phylogénetique 
 | 3-Juin | Sélection naturelle
-| 5-Juin | Diversité génomique et structure de la population |
-| 10-Juin | Introgression |
+| 5-Juin | Introgression |
+| 10-Juin | Diversité génomique et structure de la population |
 | 12-Juin | Microbiomes|
 | 17-Juin | Atelier du projet final |
 | 19-Juin | Présentation du projet final|
