@@ -53,7 +53,7 @@ echo "PATH=/home/student/LOGICIELS/ADMIXTOOLS/bin" >> ~/.Renviron
 
 cd ~
 mkdir ~/INTROGRESSION; cd ~/INTROGRESSION
-wget --no--check-certificate https://bioinf.eva.mppg.de/admixr/snps.tar.gz
+wget --no-check-certificate https://bioinf.eva.mpg.de/admixr/snps.tar.gz
 tar -xvf snps.tar.gz
 ```
 
