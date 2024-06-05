@@ -30,7 +30,7 @@ Nous travaillerons avec des données accessibles au public et des tutoriels en 
 
 ## Horaire Préliminaire (sujet à modification)
 
-| Date | Ensemble des Problèms| Thème                |
+| Date | Ensemble des Problèmes| Thème                |
 | ----------- | -| ------------------------------ |
 | 6-Mai  | 1 | UNIX 1: Ligne de commande Unix |
 | 8-Mai  | 2 | UNIX 2: Variables bash, awk et sed |
