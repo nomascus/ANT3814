@@ -1,0 +1,72 @@
+---
+title: "admixr_2024-06-05"
+output: html_document
+date: "2024-06-05"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+> load admixr and data
+
+``` {r}
+
+install.packages('admixr')
+library(admixr)
+
+snps <- eigenstrat(
+  ind = "/home/student/INTROGRESSION/snps/snps.ind", 
+  snp = "/home/student/INTROGRESSION/snps/snps.snp", 
+  geno = "/home/student/INTROGRESSION/snps/snps.geno")
+
+```
+
+# Question 1 Investigate the files we downloaded by using the less function in bash. What kind of information is contained in the snps.ind. snps.geno, and snps.snp files? HINT: these files contain most of the same information as a VCF, but they are in a different format, which is called EIGENSTRAT format. Take a look here for more information: https://reich.hms.harvard.edu/software/InputFileFormats
+
+> Run Dstats on single populations
+
+```{r}
+
+d( data=snps, W = 'French', X = 'Yoruba', Y ='Vindija', Z = 'Chimp')
+
+```
+
+# QUESTION 2: What does each column in the results table from this d statistic test signify?
+
+# QUESTION 3: What does the positive value of D mean in this example? Is there evidence of gene flow between the Vindija neanderthal and either population of modern humans?
+
+# QUESTION 4: How do we know if the value of D is significantly different from zero?
+
+# QUESTION 5: How do the numbers change if you switch the order of the French and Yoruba populations (switch the values in W and X)? What does the positive or negative value of the D statistic mean? 
+
+# QUESTION 6: What happens if you switch the order of the French population (switch the values in W and Y)?
+
+
+> Let's look at several more human populations from Europe, Africa, and Asia to see if there is a consistent pattern of introgression between neanderthals and humans in certain parts of the world.
+
+```{r}
+
+pops <- c("French","Sardinian","Han","Papuan","Khomani_San","Mbuti","Dinka")  
+
+Dstats <- d( data=snps, W= pops, X = 'Yoruba', Y ='Vindija', Z = 'Chimp')
+
+Dstats
+```
+
+# QUESTION 7: Which modern human populations show significant levels of allele sharing with Neanderthals?
+
+> Let's plot these results with error bars and showing the significant D values in blue and the non-signficant D values in red
+
+```{r}
+
+ggplot (Dstats, aes(x=W, y=D, color =abs(Zscore) > 2)) +
+  geom_point()+
+  geom_hline(yintercept = 0, linetype=2)+
+  geom_errorbar(aes(ymin= D - 2*stderr, ymax = D + 2*stderr))
+
+
+```
+
+# QUESTION 8: Knowing where Neanderthals lived, does this result make sense? If so, why?
