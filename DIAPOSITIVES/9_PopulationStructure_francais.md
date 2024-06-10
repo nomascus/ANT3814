@@ -1,6 +1,6 @@
 # Structure de la Population
 
-**Structure génétique des populations** : Une différence significative dans les fréquences des allèles entre/entre les sous-populations. Si les individus des sous-populations se reproduisent au hasard (panmixie), alors les fréquences des allèles dans chaque sous-population ne différeront pas significativement. Cependant, si la reproduction n'est pas aléatoire, des différences systématiques dans les fréquences des allèles peuvent se développer avec le temps.
+**Structure génétique des populations** : Une différence significative dans les fréquences des allèles entre les sous-populations. Si les individus des sous-populations se reproduisent au hasard (panmixie), alors les fréquences des allèles dans chaque sous-population ne différeront pas significativement. Cependant, si la reproduction n'est pas aléatoire, des différences systématiques dans les fréquences des allèles peuvent se développer avec le temps.
 
 La structure génétique des populations peut se développer à la suite de barrières physiques ou comportementales au flux de gènes, y compris les barrières géographiques et l'accouplement assortatif, qui est l'accouplement préférentiel basé sur des phénotypes similaires.
 
@@ -26,7 +26,7 @@ Les couleurs ici représentent le pays d'origine des 1387 individus qui ont ét�
 
 ## Construction d'une PCA avec des données SNP en utilisant PLINK
 
-Travailler avec les données SNP humaines que nous venons de voir est un peu trop complexe pour aujourd'hui. À la place, pour pratiquer la construction d'une ACP, nous allons télécharger des données d'exemple provenant d'un ensemble de données de poissons Cichlidés. Les données incluent deux espèces (_Pundamilia nyereri_ et _Pundamilia pundamilia_) qui ont été échantillonnées de deux endroits (makobe et python).
+Travailler avec les données SNP humaines que nous venons de voir est un peu trop complexe pour aujourd'hui. À la place, pour pratiquer la construction d'une PCA, nous allons télécharger des données d'exemple provenant d'un ensemble de données de poissons Cichlidés. Les données incluent deux espèces (_Pundamilia nyereri_ et _Pundamilia pundamilia_) qui ont été échantillonnées de deux endroits (makobe et python).
 
 Nous utiliserons un programme appelé PLINK pour générer les données ACP et les tracer dans Rstudio.
 
@@ -118,4 +118,4 @@ Sortie binaire de `plink` :
 
 ### Ensemble de Problèmes : Tracer la sortie de l'PCA
 
-Ensuite, nous nous tournons vers R pour tracer l'analyse que nous avons produite! Veuillez télécharger le [fichier](https://raw.githubusercontent.com/nomascus/ANT3814/main/PROBLEM_SETS/9_problemSet_PCA_francais.rmd) depuis le site web du cours et l'ouvrir dans Rstudio sur votre machine virtuelle.
+Ensuite, nous nous tournons vers R pour tracer l'analyse que nous avons produite! Veuillez télécharger le [fichier](https://raw.githubusercontent.com/nomascus/ANT3814/main/PROBLEM_SETS/9_problemSet_PCA_francais.rmd)  depuis le site web du cours et l'ouvrir dans Rstudio sur votre machine virtuelle.
