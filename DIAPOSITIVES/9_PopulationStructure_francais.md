@@ -36,7 +36,7 @@ Nous utiliserons un programme appelé PLINK pour générer les données ACP et l
 # Télécharger la version Linux 64 de plink depuis https://www.cog-genomics.org/plink/
 # double-cliquez sur plink_linux_x86_64_20231211.zip pour le décompresser
 # ouvrez le terminal
-cp ~/plink/Downloads/plink_linux_x86_64_20231211/plink ~/LOGICIELS/bin
+cp ~/Downloads/plink_linux_x86_64_20231211/plink ~/LOGICIELS/bin
 
 ```
 
@@ -67,7 +67,7 @@ Cela facilitera la lecture de nos données par `plink`. Ensuite, nous exécutons
 
 ```
 # effectuer l'épuration de la liaison - c'est-à-dire identifier les sites à épurer
-plink --vcf cichlid_subset.vcf.gz  --double-id --allow-extra-chr --set-missing-var-ids @:#\$1,\$2 --indep-pairwise 50 10 0.1 --out cichlids
+~/LOGICIELS/plink --vcf cichlid_subset.vcf.gz  --double-id --allow-extra-chr --set-missing-var-ids @:#\$1,\$2 --indep-pairwise 50 10 0.1 --out cichlids
 ```
 
 Donc, pour notre commande plink, nous avons fait ce qui suit :
