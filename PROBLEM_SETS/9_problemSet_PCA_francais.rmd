@@ -1,0 +1,117 @@
+---
+title: "PCA_ANT3814"
+output: html_document
+date: "2024-06-09"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+> Charger la library
+
+```{r}
+library(ggplot2)
+```
+
+> Nettoyage des données
+
+# Malheureusement, nous devons faire un peu de travail pour mettre nos données en forme raisonnable. Tout d'abord, nous allons supprimer une colonne gênante (plink affiche deux fois l'ID individuel). Nous allons également donner des noms de colonnes appropriés à notre data.frame pca.
+
+```{r}
+
+# Charger les valeurs propres et les vecteurs propres de PLINK
+
+pca <- read.table("~/PCA/cichlids.eigenvec")
+eigenval <- scan("~/PCA/cichlids.eigenval")
+
+# Supprimer la colonne dupliquée 
+pca <- pca[,-1]
+
+# Donner de nouveaux noms aux colonnes 
+names(pca)[1] <- "Individu" 
+names(pca)[2:ncol(pca)] <- paste0("PC", 1:(ncol(pca)-1))
+```
+
+> Ensuite, nous pouvons ajouter de nouvelles colonnes pour les espèces et les lieux d'échantillonnage. Cette information est déjà contenue dans la colonne "Individu", mais elle est désordonnée. Nous pouvons séparer l'information en colonnes distinctes en utilisant la version R de grep. Nous utilisons ensuite paste0 pour combiner les colonnes.
+
+```{r}
+
+# Séparer les espèces individuelles et les populations
+
+# Espèces
+
+espece <- rep(NA, length(pca$Individu))
+espece[ grep("PunPund", pca$Individu)] <- "pundamilia"
+espece[ grep("PunNyer", pca$Individu)] <- "nyererei"
+
+# Lieu
+
+lieu <- rep(NA, length(pca$Individu))
+lieu[grep("Mak", pca$Individu)]  <- "makobe"
+lieu[grep("Pyt", pca$Individu)]  <- "python"
+```
+
+> Avec ces variables créées, nous pouvons recréer notre data.frame en ajoutant les nouvelles colonnes à la fin du data frame pca comme ceci.
+
+```{r}
+
+# Refaire le data frame
+
+pca <- data.frame(pca, espece, lieu)
+```
+
+> Visualisation des données
+
+# Maintenant que nous avons nettoyé nos données, nous avons tout en place pour visualiser correctement les données. Tout d'abord, nous allons tracer les valeurs propres pour voir l'importance relative de chacune. Il est relativement simple de les traduire en pourcentage de variance expliquée.
+
+```{r}
+
+# Convertir les vecteurs propres en pourcentage de variance expliquée
+
+pve <- data.frame(PC = 1:16, pve = eigenval/sum(eigenval)*100)
+```
+
+# Une fois cela fait, il est simple de créer un diagramme en barres montrant le pourcentage de la variance totale que chaque composant principal explique
+
+```{r}
+
+# Faire un diagramme en barres
+
+ggplot(pve, aes(x = PC, y = pve)) +
+  geom_bar(stat = 'identity') +
+  ylab("Pourcentage de variance expliquée")+
+  theme_light()
+```
+
+# Cumulativement, les 16 valeurs propres expliquent 100% de la variance, mais PC1, PC2, et éventuellement PC3 expliquent ensemble environ 30% de la variance.
+
+> Tracer l'PCA
+
+# Ensuite, nous passons à la visualisation de notre PCA. Étant donné le travail que nous avons fait plus tôt pour reformater les données, cela ne prend pas beaucoup d'efforts.
+
+```{r}
+
+# Tracer l'PCA
+
+ggplot(pca, aes(x= PC1, y = PC2, color = espece, shape = lieu)) +geom_point(size =3)+
+  xlab(paste0("PC1 (", signif(pve$pve[1], 3), "%)")) +
+  ylab(paste0("PC2 (", signif(pve$pve[2], 3), "%)")) +
+  theme_light()
+```
+
+> QUESTIONS 
+
+#1: Quel pourcentage de la variance totale est expliqué par les premier et deuxième composants principaux?
+
+#2: Quelle variable est la mieux séparée par PC1 et quelle variable est la mieux séparée par PC2?
+
+#3: Les espèces expliquent-elles plus de variance dans les données ou le lieu d'échantillonnage?
+
+#4: Quel groupe d'échantillons se regroupe séparément des trois autres groupes?
+
+#5: Refaites le graphique, mais cette fois placez PC 2 sur l'axe des X et PC 3 sur l'axe des Y. Collez le code ggplot ici.
+
+#6: En retirant le premier composant principal, pouvez-vous voir plus clairement la séparation par espèce? Cela change-t-il votre interprétation des données?
+
+#7: Il y a 16 échantillons au total dans l'ensemble de données et 4 groupes. Est-ce suffisamment de données pour identifier clairement la séparation de 2 variables? Si vous conceviez une nouvelle étude sur ces poissons, que recommanderiez-vous pour mieux comprendre leur structure génétique des populations?
