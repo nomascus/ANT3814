@@ -60,7 +60,7 @@ cd PCA
 ```
 Nous allons également simplifier notre code en utilisant quelques variables environnementales. Principalement, nous en définissons une pour notre VCF filtré.
 ```
-VCF=~/vcf/cichlid_full_filtered_rename.vcf.gz
+VCF=~/vcf/cichlid_subset.vcf.gz
 ```
 
 Cela facilitera la lecture de nos données par `plink`. Ensuite, nous exécutons l'épuration de la liaison. Exécutez la commande et nous expliquerons ce que signifient tous les arguments.
@@ -68,7 +68,7 @@ Cela facilitera la lecture de nos données par `plink`. Ensuite, nous exécutons
 ```
 # effectuer l'épuration de la liaison - c'est-à-dire identifier les sites à épurer
 plink --vcf $VCF --double-id --allow-extra-chr \
---set-missing-var-ids @:# \
+--set-missing-var-ids @:#\1\2 \
 --indep-pairwise 50 10 0.1 --out cichlids
 ```
 
