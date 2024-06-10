@@ -118,4 +118,4 @@ Sortie binaire de `plink` :
 
 ### Ensemble de Problèmes : Tracer la sortie de l'PCA
 
-Ensuite, nous nous tournons vers R pour tracer l'analyse que nous avons produite! Veuillez télécharger le fichier depuis le site web du cours et l'ouvrir dans Rstudio sur votre machine virtuelle.
+Ensuite, nous nous tournons vers R pour tracer l'analyse que nous avons produite! Veuillez télécharger le [fichier](https://raw.githubusercontent.com/nomascus/ANT3814/main/PROBLEM_SETS/9_problemSet_PCA_francais.rmd) depuis le site web du cours et l'ouvrir dans Rstudio sur votre machine virtuelle.

@@ -119,4 +119,4 @@ PCA output:
 
 ### Problem Set: Plotting the PCA output
 
-Next we turn to R to plot the analysis we have produced! Please download the file from the course website and open it in Rstudio in your virtual machine.
+Next we turn to R to plot the analysis we have produced! Please download the [file](https://raw.githubusercontent.com/nomascus/ANT3814/main/PROBLEM_SETS/9_problemSet_PCA_english.rmd) from the course website and open it in Rstudio in your virtual machine.
