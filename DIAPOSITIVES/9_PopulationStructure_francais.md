@@ -67,7 +67,7 @@ Cela facilitera la lecture de nos données par `plink`. Ensuite, nous exécutons
 
 ```
 # effectuer l'épuration de la liaison - c'est-à-dire identifier les sites à épurer
-~/LOGICIELS/plink --vcf cichlid_subset.vcf.gz  --double-id --allow-extra-chr --set-missing-var-ids @:#\$1,\$2 --indep-pairwise 50 10 0.1 --out cichlids
+plink --vcf cichlid_subset.vcf.gz  --double-id --allow-extra-chr --set-missing-var-ids @:#\$1,\$2 --indep-pairwise 50 10 0.1 --out cichlids
 ```
 
 Donc, pour notre commande plink, nous avons fait ce qui suit :
