@@ -1,0 +1,290 @@
+---
+title: "Microbiome"
+output: html_document
+date: "2024-06-12"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Install and load packages
+
+```{r}
+
+install.packages("tidyverse")
+install.packages("vegan")
+install.packages("BiocManager")
+
+if(!requireNamespace("BiocManager")){
+  install.packages("BiocManager")
+}
+
+BiocManager::install("phyloseq")
+
+
+library(tidyverse); library(vegan); library(phyloseq)
+
+```
+
+
+> Load object in phyloseq format and clean up the names
+
+```{r}
+
+# Upload ANT3814_ps.rds into Posit Cloud by clicking "Upload" from the "Files" tab in the bottom right window
+
+ANT3814_ps <- readRDS("/cloud/project/ANT3814_ps.rds")
+
+# The code in this block cleans up the messy taxonomy names in the data set so they read ASV_001, ASV_002, etc.
+
+ANT3814_ps_rename <- ANT3814_ps
+n_seqs <- seq(ntaxa(ANT3814_ps_rename))
+len_n_seqs <- nchar(max(n_seqs))
+taxa_names(ANT3814_ps_rename) <- paste("ASV", formatC(n_seqs, 
+                                            width = len_n_seqs, 
+                                            flag = "0"), sep = "_")
+
+
+ANT3814_ps <- ANT3814_ps_rename
+taxa_names(ANT3814_ps)
+
+```
+
+> Let's look at the data 
+
+```{r}
+
+# View the metadata 
+view(sample_data(ANT3814_ps))
+
+# View the different kinds of microbes in the data set
+TAXONOMY_TABLE <-tax_table(ANT3814_ps)
+view(TAXONOMY_TABLE)
+
+# View the number of each kind of microbe in each sample 
+OTU_TABLE <-otu_table(ANT3814_ps)
+view(OTU_TABLE)
+
+# View the number of sequencing reads in each sample
+sort(sample_sums(ANT3814_ps))
+
+```
+# QUESTION 1: What is ASV_228? How many samples is it in? Can we confidently identify it's species?
+
+# QUESTION 2: What is ASV_221? How many samples is it in? Can we confidently identify it's species?
+
+# QUESTION 3: How many samples have more than 1000 sequencing reads?
+
+> Make rarefaction curve of the number of ASVs for each sample. This shows how many new ASV's are found for more sequencing the DNA  
+
+```{r}
+
+sort(sample_sums(ANT3814_ps))
+tab <- otu_table(ANT3814_ps)
+class(tab) <- "matrix" # as.matrix() will do nothing
+## you get a warning here, but this is what we need to have
+tab <- t(tab) # transpose observations to rows
+
+rarecurve(tab, step=50, lwd=2, ylab="Number of ASVs",  label=F, cex=0.5)
+
+```
+
+# QUESTION 4: In general, around what number of sequencing reads (the value on the X-axis) does the number of ASV's flatten out? 
+
+
+> Lets rarefy the dataset to 1103 sequencing reads (excluding 3 samples). This will randomly select 1103 sequencing reads from each sample to allow for an even comparision of microbial diversity across all the samples
+
+```{r}
+
+set.seed(111) # keep result reproductive
+ps.rarefied = rarefy_even_depth(ANT3814_ps, rngseed=1, sample.size=1103, replace=F)
+ps.rarefied #The sequencing depth of all remaining 31 samples is 1103.
+
+sort(sample_sums(ps.rarefied))
+
+```
+
+# QUESTION 5: How many samples have LESS than 1000 sequencing reads in the rarefied data set?
+
+> Shannon alpha diversity accounts for both the richness and abundance of ASVs in each sample. The boxplots below show the alpha diversity value for each sample grouped by the body site where it was collected
+
+```{r}
+
+plot_richness(ps.rarefied, x="body.site", measures= "Shannon", color = 'body.site') +
+  geom_boxplot() +
+  theme_classic() +
+  theme(strip.background = element_blank(), axis.text.x.bottom = element_text(angle = -90))
+
+```
+
+# QUESTION 6: Which body type appears to have the lowest alpha diversity?
+
+> Let's test for a significant difference in the alpha diversity of each body site using pairwise Wilcoxon rank-sum tests. Because we are making multiple tests, we need to correct the p-value using the false discovery rate (FDR) method.
+
+```{r}
+
+rich = estimate_richness(ps.rarefied, measures = "Shannon")
+wilcox.shannon <- pairwise.wilcox.test(rich$Shannon, 
+                                       sample_data(ps.rarefied)$body.site, 
+                                       p.adjust.method = "BH")
+
+tab.shannon <- wilcox.shannon$p.value %>%
+  as.data.frame() %>%
+  tibble::rownames_to_column(var = "group1") %>%
+  gather(key="group2", value="p.adj", -group1) %>%
+  na.omit()
+tab.shannon
+
+```
+
+# QUESTION 7: Using an adjusted p-value threshold of 0.05, which pairs of sampling sites have significantly different levels of alpha diversity?
+
+> Beta diversity
+
+# Beta diversity metrics assess the dissimilarity between ecosystem, telling you to what extend one community is different from another. Here are some demo code using Bray Curtis and binary Jaccard distance metrics. 
+
+# PCoA and PERMANOVA/ADONIS
+
+```{r}
+
+#Bray curtis distance is in overlapped use, so we specify the package by phyloseq::distance
+
+dist = phyloseq::distance(ps.rarefied, method="bray")
+ordination = ordinate(ps.rarefied, method="PCoA", distance=dist)
+
+plot_ordination(ps.rarefied, ordination, color="body.site", shape='body.site') + 
+  theme_classic() +
+  theme(strip.background = element_blank())
+
+```
+
+# QUESTION 8: Looking at the beta diversity plot, how many main clusters do you see? In general, which of the four sample types are most similar?
+
+# QUESTION 9: Notice the blue square point in the red cluster and the green triangle point in the purple cluster. What do you think happened here? 
+
+
+> PERMANOVA/ADONIS
+
+```{r}
+
+# ADONIS 
+
+metadata <- data.frame(sample_data(ps.rarefied))
+test.adonis <- adonis2(dist ~ body.site, data = metadata)
+test.adonis
+
+#PAIRWISE PERMANOVA
+
+cbn <- combn(x=unique(metadata$body.site), m = 2)
+p <- c()
+
+for(i in 1:ncol(cbn)){
+  ps.subs <- subset_samples(ps.rarefied, body.site %in% cbn[,i])
+  metadata_sub <- data.frame(sample_data(ps.subs))
+  permanova_pairwise <- adonis2(phyloseq::distance(ps.subs, method = "bray") ~ body.site, 
+                                data = metadata_sub)
+  p <- c(p, permanova_pairwise$`Pr(>F)`[1])
+}
+
+p.adj <- p.adjust(p, method = "BH")
+p.table <- cbind.data.frame(t(cbn), p=p, p.adj=p.adj)
+p.table
+
+```
+# QUESTION 10: An "adonis" test is an analysis of variance using distance matrices. It tests for a significant difference in the cluster positions among the body sites. Are the body site clusters significantly different from each other? How do you know?
+
+
+
+
+> Abundance bar plot: Here the demos use a un-rarefied table to visualize all detected tags.
+
+
+
+# QUESTION 11: In the pairwise PERMANOVA test, we are looking to see which (if any) pairs of body sites have significantly different microbial communities. Looking at the adjusted p-value column (p.adj), the microbiome communities of which body sites are a significant different from eachother? 
+
+> Relative abundances of Phyla 
+
+```{r}
+
+# Normalize the data set by transforming the ASV abundances into relative abundances 
+
+ps.rel = transform_sample_counts(ANT3814_ps, function(x) x/sum(x)*100)
+
+# Agglomerate ASVs to phylum level
+
+glom <- tax_glom(ps.rel, taxrank = 'Phylum', NArm = FALSE)
+ps.melt <- psmelt(glom)
+
+# change to character for easy-adjusted level
+
+ps.melt$Phylum <- as.character(ps.melt$Phylum)
+
+ps.melt <- ps.melt %>%
+  group_by(body.site, Phylum) %>%
+  mutate(median=median(Abundance))
+
+# select group median > 1
+
+keep <- unique(ps.melt$Phylum[ps.melt$median > 1])
+ps.melt$Phylum[!(ps.melt$Phylum %in% keep)] <- "< 1%"
+
+#to get the same rows together
+
+ps.melt_sum <- ps.melt %>%
+  group_by(Sample,body.site,Phylum) %>%
+  summarise(Abundance=sum(Abundance))
+
+ggplot(ps.melt_sum, aes(x = Sample, y = Abundance, fill = Phylum)) + 
+  geom_bar(stat = "identity", aes(fill=Phylum)) + 
+  labs(x="Sample", y="Percent of total ASVs (Phylum)") +
+  facet_wrap(~body.site, scales= "free_x", nrow=1) +
+  theme_classic() + 
+  theme(strip.background = element_blank(), 
+        axis.text.x.bottom = element_text(angle = -90))
+
+```
+
+# QUESTION 12: Here we can see the relative abundance of each microbial PHYLUM Each column is a different sample, and the relative abundance of a phylum in a sample is color coded by the bar. When looking at the abundances of the phyla, which sample type is most different? 
+
+> Relative abundances of Genera
+
+```{r}
+
+# Normalize the data set by transforming the ASV abundances into relative abundances 
+
+ps.rel = transform_sample_counts(ANT3814_ps, function(x) x/sum(x)*100)
+
+# agglomerate ASV to genus level
+glom <- tax_glom(ps.rel, taxrank = 'Genus', NArm = FALSE)
+ps.melt <- psmelt(glom)
+
+# change to character for easy-adjusted level
+ps.melt$Genus <- as.character(ps.melt$Genus)
+
+ps.melt <- ps.melt %>%
+  group_by(body.site, Genus) %>%
+  mutate(median=median(Abundance))
+# select group mean > 1
+keep <- unique(ps.melt$Genus[ps.melt$median > 2.5])
+ps.melt$Genus[!(ps.melt$Genus %in% keep)] <- "< 2.5%"
+#to get the same rows together
+ps.melt_sum <- ps.melt %>%
+  group_by(Sample,body.site,Genus) %>%
+  summarise(Abundance=sum(Abundance))
+
+ggplot(ps.melt_sum, aes(x = Sample, y = Abundance, fill = Genus)) + 
+  geom_bar(stat = "identity", aes(fill=Genus)) + 
+  labs(x="Sample", y="Percent of total ASVs (Genus)") +
+  facet_wrap(~body.site, scales= "free_x", nrow=1) +
+  theme_classic() + 
+  theme(legend.position = "right", 
+        strip.background = element_blank(), 
+        axis.text.x.bottom = element_text(angle = -90))
+
+```
+
+
+# QUESTION 13: Here we can see the relative abundance of each microbial GENUS. In comparison to what we saw from the microbial phyla, how does the variation of the microbial communities of the body sites differ at the level of the genera? In general, which body sites are similar and which are different?
+
+

@@ -44,8 +44,8 @@ Nous travaillerons avec des données accessibles au public et des tutoriels en 
 | 5-Juin | 8 | Introgression |
 | 10-Juin | 9 | Diversité génomique et structure de la population |
 | 12-Juin | 10 | Microbiomes|
-| 17-Juin | | Atelier du projet final |
-| 19-Juin | | Présentation du projet final|
+| 17-Juin | | Atelier du projet final 1|
+| 19-Juin | | Atelier du projet final 2|
 
 ## Autres considérations
 

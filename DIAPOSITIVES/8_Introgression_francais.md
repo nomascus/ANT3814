@@ -51,7 +51,7 @@ make clobber; make all; make install
 echo "export PATH=\"$PATH:/home/student/LOGICIELS/AdmixTools/bin\"" >> ~/.bashrc
 source ~/.bashrc
 cp /etc/R/Renviron ~/.Renviron
-echo $PATH >> ~/.Renviron
+echo "PATH=$PATH >> ~/.Renviron"
 
 cd ~
 mkdir ~/INTROGRESSION; cd ~/INTROGRESSION
