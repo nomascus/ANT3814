@@ -1,27 +1,29 @@
 ---
 title: "Microbiome"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 date: "2024-06-12"
 ---
 
 ```{r setup, include=FALSE}
-#knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Installer et charger les packages
 
 ```{r}
 
-install.packages("rmarkdown")
-install.packages("tidyverse")
-install.packages("vegan")
-install.packages("BiocManager")
+#install.packages("rmarkdown")
+#install.packages("tidyverse")
+#install.packages("vegan")
+#install.packages("BiocManager")
 
-if(!requireNamespace("BiocManager")){
-  install.packages("BiocManager")
-}
+#if(!requireNamespace("BiocManager")){
+#  install.packages("BiocManager")
+#}
 
-BiocManager::install("phyloseq")
+#BiocManager::install("phyloseq")
 
 
 library(tidyverse); library(vegan); library(phyloseq)
@@ -34,7 +36,7 @@ library(tidyverse); library(vegan); library(phyloseq)
 
 # Charger ANT3814_ps.rds dans Posit Cloud en cliquant sur "Upload" depuis l'onglet "Files" dans la fenêtre en bas à droite
 
-ANT3814_ps <- readRDS("/cloud/project/ANT3814_ps.rds")
+ANT3814_ps <- readRDS("~/Dropbox/Montreal/TEACHING/ANT_3814_ComputationalCourse/GIT/PROBLEM_SETS/ANT3814_ps.rds")
 
 # Le code de ce bloc nettoie les noms de taxonomie désordonnés dans le jeu de données pour qu'ils soient lisibles comme ASV_001, ASV_002, etc.
 
@@ -210,7 +212,7 @@ ps.rel = transform_sample_counts(ANT3814_ps, function(x) x/sum(x)*100)
 # Regrouper les ASV au niveau du phylum
 
 glom <- tax_glom(ps.rel, taxrank = 'Phylum', NArm = FALSE)
-ps.melt
+ps.melt <- psmelt(glom)
 
 ps.melt <- psmelt(glom)
 
