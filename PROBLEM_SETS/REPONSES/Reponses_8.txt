@@ -1,0 +1,17 @@
+# QUESTION 1 Explorez les fichiers que nous avons téléchargés en utilisant la fonction less dans bash. Quel type d'information est contenue dans les fichiers snps.ind, snps.geno et snps.snp? INDICE : ces fichiers contiennent presque les mêmes informations qu'un VCF, mais ils sont dans un format différent, appelé format EIGENSTRAT. Regardez ici pour plus d'informations : https://reich.hms.harvard.edu/software/InputFileFormats (3 pts)	snps.ind: The individual and species/population
+	snps.snp: Information about the physical location of the SNP and alleles		snps.geno: Each line contains the genotype of each SNP (0=homozygous reference, 1=heterozygous, 2=homozygous alternative, 9=unknown) for each individual
+# QUESTION 2 : Que signifie chaque colonne dans le tableau des résultats de ce test de la statistique D ? (3 pts)		Column 1: Population W (French)
+	Column 2: Population X (Yoruba)
+	Column 3: Population Y (Vindija Neandertal)
+	Column 4: Outgroup (Chimpanzee)
+	Column 5: Value of D statistic
+	Column 6: Standard error on the D statistic value
+	Column 7: Z-score, which indicates significance of D statistic value
+	Column 8: Number of BABA trees found in the SNPs
+	Column 9: Number of ABBA trees found in the SNPs
+	Column 10: Number of SNPs used in the test
+# QUESTION 3 : Que signifie la valeur positive de D dans cet exemple ? Y a-t-il des preuves de flux de gènes entre le néandertalien de Vindija et l'une des populations humaines modernes ? (2 pts)	A positive D value indicates allele sharing between the population Y (the Vindija neandertal) and population W (French). # QUESTION 4 : Comment savons-nous si la valeur de D est significativement différente de zéro ? (2 pts)
+
+	The value of the D-statistic is considered to be significant if the Z-score is greater than 2 (for a positive D) or less than 2 (for a negative D). # QUESTION 5 : Comment les chiffres changent-ils si vous inversez l'ordre des populations françaises et yorubas (inversez les valeurs dans W et X) ? Que signifie la valeur positive ou négative de la statistique D ? (2 pts)	In this case the D-statistic value becomes negative, which indicates allele sharing between population X (which is now French) and the Vindija neanderthal# QUESTION 6 : Que se passe-t-il si vous inversez l'ordre de la population française (inversez les valeurs dans W et Y) ? (2 pts)	This results in a D statistic value of -0.4363, which would indicate an extremely high level of allele sharing between the French and Yoruba populations, which would make sense, because all humans are much more closely related to each other than either is to neanderthals	# QUESTION 7 : Quelles populations humaines modernes montrent des niveaux significatifs de partage d'allèles avec les néandertaliens ? (2 pts)	Only modern human populations outside Africa (French, Sardinian, Han, and Papuan) show significant allele sharing with Neanderthals# QUESTION 8 : En sachant où les néandertaliens ont vécu, ce résultat a-t-il du sens ? Si oui, pourquoi ? (2 pts)
+	
+	Neanderthals overlapped with the anatomically modern human European populations, but the allele sharing with Han and Papuan populations suggests a more complicated pattern of ancient introgression

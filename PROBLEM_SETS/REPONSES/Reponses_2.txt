@@ -1,0 +1,97 @@
+# Unix2: Problème défini
+
+Utilisez la ligne de commande pour répondre à toutes les questions suivantes. Pour chaque question, copiez la ligne de code que vous avez utilisée pour répondre à la question et enregistrez-la dans un fichier texte.
+
+1) Affichez votre UTILISATEUR et HOSTNAME à l'écran (2pts)
+
+echo $USER
+echo $HOSTNAME 
+
+2) Utilisez une variable d'environnement pour afficher un nombre aléatoire à l'écran (1pt)
+
+echo $RANDOM
+ 
+3) Enregistrez les variables suivantes en bash : votre nom, votre groupe préféré, le titre de votre livre préféré, une liste de 3 films, le nombre 7, le nombre 3.141592654 (6 pts) 
+
+NOM=‘Joe’
+GROUPE='Pixies'
+LIVRE='100yearsOfSolitude'
+FILMS='The Big Lebowski, Being John Malkovich, Dune'
+NOMBRE=7
+PI=3.141592654
+
+4) Quel type de données est chaque variable ? (6 pts) 
+
+NOM:	string
+GROUPE:	string
+LIVRE:	string
+FILMS:	string
+NOMBRE:	integer
+PI:	floating point number
+
+
+5) Utilisez les variables pour écrire une phrase qui liste votre nom, votre groupe préféré, le titre de votre livre préféré et les 3 films (3 pts)
+
+echo -e "mon nom est $NOM, mon groupe préféré est $GROUPE, mon livre préféré sont $LIVRE, est mon 3 films préféré sont $FILMS"
+
+6) Multipliez ensemble les deux variables numériques (2 pts)
+
+echo "$nombre * $pi" | bc -l
+
+7) Ajoutez un quatrième film à la variable qui est votre liste de 3 films en utilisant la méthode $( ) (2pts)
+
+FILM2='Princess Mononoke'
+FILMS=$(echo $FILMS $FILMS2)
+
+8) Ajoutez un cinquième film à la variable qui est votre liste de 3 films en utilisant la méthode ${ } (2pts)
+
+FILMS='${FILMS}, Groundhog Day'
+echo $FILMS
+
+Téléchargez la séquence génique du gène de l'insuline humaine (INS) à partir d'ici : 
+https://raw.githubusercontent.com/nomascus/ANT3814/main/FILES/INS_gene.fasta
+
+9) Utilisez grep -v pour extraire la ligne d'en-tête et enregistrez-la en tant que variable appelée $headerINS (1pt)
+
+headerINS=$(grep ">" INS_gene.fasta)
+
+10) Utilisez grep pour extraire les lignes de séquence et enregistrez-les en tant que variable appelée $sequenceINS (1pt)
+
+sequenceINS=$(grep -v ">" INS_gene.fasta)
+
+11) Affichez $sequenceINS à l'écran. Pourquoi y a-t-il des espaces entre chaque ligne de séquence ? (2pts)
+
+echo sequencesINS
+
+Les espaces sont les nouvelles lignes
+
+12) Utilisez sed pour supprimer les espaces entre les lignes de séquence. Astuce : google "sed global replace" (1pt)
+
+echo $sequenceINS | sed 's/\s//g'
+
+Téléchargez le fichier vcf suivant, et décompressez-le avec la commande ```gunzip``` : https://raw.githubusercontent.com/nomascus/ANT3814/main/FILES/chr22.1kg.phase3.v5a.trimmed.vcf.gz
+
+Les génotypes dans ce VCF sont indiqués comme suit :
+
+Allèle de référence homozygote :	0|0
+Allèle alternatif homozygote :	1|1
+Hétérozygote :	0|1 ou 0|1			
+
+13) Regardez le fichier. Combien y a-t-il de lignes, et combien de lignes sont des lignes d'en-tête par rapport aux lignes de données ? Combien d'individus y a-t-il dans le VCF ? (3 pts)
+
+wc  chr22.1kg.phase3.v5a.trimmed.vcf 
+grep -v "#"  chr22.1kg.phase3.v5a.trimmed.vcf |wc
+Il y a 11 individu dans le VCF
+
+14) Utilisez l'approche cat <( ) < ( ) pour afficher les lignes d'en-tête et les 10 dernières lignes (2 pts)
+cat <(grep "#" chr22.1kg.phase3.v5a.trimmed.vcf) <(tail -10 chr22.1kg.phase3.v5a.trimmed.vcf) 
+
+
+15) Imprimez une version simplifiée du VCF qui inclut uniquement le chromosome, la position, l'allèle de référence, l'allèle alternatif et les génotypes des individus. Enregistrez ce fichier sous le nom de clean.vcf (2 pts)
+
+grep -v "##" chr22.1kg.phase3.v5a.trimmed.vcf | awk '{print $1"\t"$2"\t"$4"\t"$5"\t"$10"\t"$11"\t"$12"\t"$13"\t"$14"\t"$15"\t"$16"\t"$17"\t"$18"\t"$19"\t"$20}'> clean.vcf
+
+
+16) Créez une version de clean.vcf qui n'inclut que les lignes avec au moins 1 position qui est hétérozygote. Combien y a-t-il de ces positions ? (2 pts)
+
+grep -E '(0\|1|1\|0)' FILES/clean.vcf |wc -l
