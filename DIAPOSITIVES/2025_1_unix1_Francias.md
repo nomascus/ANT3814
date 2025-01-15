@@ -1,3 +1,4 @@
+
 # ANT3814 : Séminaire d'anthropologie - Méthodes computationnelles en anthropologie moléculaire
 
 ## Lecture 1 : La ligne de commande Unix
@@ -94,7 +95,7 @@ Pour accéder au serveur, vous devez taper la commande **ssh**, qui signifie “
 
 ```
 
-ssh [userid@ant3814.calculquebec.cloud](mailto:userid@ant3814.calculquebec.cloud)
+ssh userid@ant3814.calculquebec.cloud
 
 ```
 
@@ -103,7 +104,7 @@ Par exemple, pour mon nom d’utilisateur :
 
 ```
 
-[orkin@ant3814.calculquebec.cloud](mailto:orkin@ant3814.calculquebec.cloud)
+ssh orkin@ant3814.calculquebec.cloud
 
 ```
 
@@ -182,7 +183,8 @@ Certaines commandes prennent plus de temps à s’exécuter. Tant que la command
 
 ```
 
-[orkin@login1] ~$ long_running_application & [orkin@login1] ~$
+[orkin@login1] ~$ long_running_application &
+[orkin@login1] ~$
 
 ```
 > La commande s’exécutera en arrière-plan. Si elle produit une sortie, celle-ci s’affichera dans la fenêtre du terminal. Vous pouvez vouloir enregistrer cette sortie dans un fichier (on parlera plus tard de la redirection).
@@ -213,7 +215,8 @@ Il existe aussi quelques commandes de shell utiles :
 
 ```
 
-[orkin@login1] ~$ le< less lessecho lessfile lesskey lesspipe let lexgrog [orkin@login1] ~$ le
+[orkin@login1] ~$ le< less lessecho lessfile lesskey lesspipe let lexgrog
+[orkin@login1] ~$ le
 
 ```
 > Si vous appuyez sur **Tab** après avoir partiellement saisi une commande, mais avant **Enter**, **bash** vous proposera aussi la liste des fichiers existants, car de nombreuses commandes opèrent sur des fichiers.
@@ -225,7 +228,8 @@ Vous pouvez utiliser des caractères génériques pour désigner des fichiers. `
 
 ```
 
-[orkin@login1] ~$ ls *.txt data.txt readme.txt results.txt transitions.txt [orkin@login1] ~$
+[orkin@login1] ~$ ls *.txt data.txt readme.txt results.txt transitions.txt
+[orkin@login1] ~$
 
 ```
 
@@ -234,7 +238,8 @@ Il existe également des formes plus avancées de motifs génériques que vous p
 
 ```
 
-[orkin@login1] ~$ ls [rd]*.txt data.txt readme.txt results.txt [orkin@login1] ~$
+[orkin@login1] ~$ ls [rd]*.txt data.txt readme.txt results.txt 
+[orkin@login1] ~$
 
 ```
 Vous pouvez aussi indiquer des intervalles de caractères comme `[a-e]` ou `[1-5]`.
@@ -249,7 +254,7 @@ Un ordinateur est équipé d’un espace de stockage pour les scripts, données,
 
 #### Home sweet home (votre répertoire personnel `~`)
 
-Lorsque vous vous connectez, vous vous trouvez dans votre répertoire personnel (home directory), généralement dans `/home` (sur mac OS, c’est dans `/Users`). Si votre identifiant est `jdesjardins`, votre répertoire s’appelle alors `/Users/jdesjardins`. On appelle cela un chemin d’accès ou **path**. Unix est rempli d’abréviations pour vous éviter de trop taper. Vous pouvez ainsi raccourcir ce chemin en `~username` (où “username” est le vôtre ou celui de quelqu’un d’autre), ou simplement `~`. Le caractère `~` s’appelle “tilde” et se trouve en haut à gauche de votre clavier.
+Lorsque vous vous connectez, vous vous trouvez dans votre répertoire personnel (home directory), généralement dans `/home` (sur mac OS, c’est dans `/Users`). Si votre identifiant est `jdesjardins`, votre répertoire s’appelle alors `/home/jdesjardins`. On appelle cela un chemin d’accès ou **path**. Unix est rempli d’abréviations pour vous éviter de trop taper. Vous pouvez ainsi raccourcir ce chemin en `~username` (où “username” est le vôtre ou celui de quelqu’un d’autre), ou simplement `~`. Le caractère `~` s’appelle “tilde” et se trouve en haut à gauche de votre clavier.
 
 Dans votre répertoire personnel, vous pouvez sauvegarder, supprimer, ouvrir et déplacer des fichiers et d’autres répertoires. En général, vous pouvez lire, mais pas modifier, les fichiers situés en dehors de ce répertoire.
 
@@ -270,7 +275,11 @@ Vous pouvez vous déplacer d’un répertoire à l’autre grâce à la commande
 
 ```
 
-[orkin@login1] $ cd projects [orkin@login1 projects]$ pwd /home/orkin/projects [orkin@login1 projects]$ cd [orkin@login1 ~] $ cd / [orkin@login1 /] $ / % ls -aF
+[orkin@login1] $ cd projects
+[orkin@login1 projects]$ pwd /home/orkin/projects
+[orkin@login1 projects]$ cd
+[orkin@login1 ~] $ cd /
+[orkin@login1 /] $ ls -aF
 
 ```
 
@@ -299,7 +308,8 @@ Si vous êtes perdu, la commande `pwd` vous indique le chemin complet de votre r
 
 ```
 
-[orkin@login1 scratch]$ pwd /home/orkin/scratch
+[orkin@login1 scratch]$ pwd
+/home/orkin/scratch
 
 ```
 
@@ -311,7 +321,9 @@ Vous pouvez spécifier un chemin de deux façons : un chemin absolu commence tou
 ```
 
 [orkin@login1 scratch] cd ../project  
-[orkin@login1 project] $ cd [orkin@login1 /] $ cd /home/orkin/project [orkin@login1 project] $
+[orkin@login1 project] $ cd
+[orkin@login1 /] $ cd /home/orkin/project 
+[orkin@login1 project] $
 
 ```
 
@@ -341,7 +353,8 @@ La commande `apropos` recherche des commandes selon un mot-clé ou une expressio
 
 ```
 
-[orkin@login1] $ apropos column showtable (1) - Show data in nicely formatted columns colrm (1) - remove columns from a file column (1) - columnate lists fix132x43 (1) - fix problems with certain (132 column) graphics modes
+[orkin@login1] $ apropos column
+showtable (1) - Show data in nicely formatted columns colrm (1) - remove columns from a file column (1) - columnate lists fix132x43 (1) - fix problems with certain (132 column) graphics modes
 
 ```
 
@@ -354,7 +367,8 @@ Le programme `wc` (word count) est un exemple : il reconnaît `-c`, `-w` et `-l`
 
 ```
 
-[orkin@login1 ~] $ wc -c -l /var/log/README 25 150 /var/log/README [orkin@login1 ~] $ wc --chars --lines /var/log/messages 25 150 /var/log/README
+[orkin@login1 ~] $ wc -c -l /var/log/README 25 150 /var/log/README
+[orkin@login1 ~] $ wc --chars --lines /var/log/messages 25 150 /var/log/README
 
 ```
 
@@ -363,7 +377,8 @@ Vous pouvez même regrouper plusieurs options courtes :
 
 ```
 
-[orkin@login1 ~] $ wc -cl /var/log/README 25 150 /var/log/README
+[orkin@login1 ~] $ wc -cl 
+/var/log/README 25 150 /var/log/README
 
 ```
 
@@ -468,8 +483,11 @@ Le programme `wc` compte les lignes, les caractères et les mots envoyés à son
 
 [orkin@login1 ~] $ wc Alouette, gentille alouette,  
 Alouette, je te plumerai
-
-Je te plumerai la tete Je te plumerai la tete Alouette, alouette A a a ah ^d 6 23 126
+Je te plumerai la tete 
+Je te plumerai la tete 
+Alouette, alouette 
+A a a ah ^d 
+6 23 126
 
 ```
 
@@ -480,7 +498,8 @@ On veut souvent compter les lignes d’un gros fichier et sauvegarder le résult
 
 ```
 
-[orkin@login1 FILES] wc big_file.fasta 159 728 64628 big_file.fasta
+[orkin@login1 FILES] wc big_file.fasta
+159 728 64628 big_file.fasta
 
 ```
 
@@ -498,7 +517,8 @@ Si vous regardez le contenu de **count.txt** avec `cat`, vous verrez les donnée
 
 ```
 
-[orkin@login1 FILES] $ cat count.txt 159 728 64628
+[orkin@login1 FILES] $ cat count.txt
+159 728 64628
 
 ```
 
@@ -532,7 +552,8 @@ De nombreuses commandes Unix agissent comme des **filtres** : elles lisent des d
 
 ```
 
-[orkin@login1 FILES] grep 'Colobus' big_file.fasta [orkin@login FILES1] grep 'Colobus ' < big_file.fasta
+[orkin@login1 FILES] grep 'Colobus' big_file.fasta 
+[orkin@login FILES1] grep 'Colobus ' < big_file.fasta
 
 ```
 
@@ -555,7 +576,8 @@ Le grand avantage du shell Unix est de pouvoir enchaîner plusieurs commandes av
 
 ```
 
-[orkin@login1 FILES] grep 'Colobus' big_file.fasta | wc -l 3
+[orkin@login1 FILES] grep 'Colobus' big_file.fasta | wc -l 
+3
 
 ```
 Ici, `grep` recherche les lignes contenant “Colobus” dans **big_file.fasta**, et `wc -l` compte le nombre de lignes qui lui sont passées. Le symbole `|` (pipe) relie la sortie standard de `grep` à l’entrée standard de `wc`.
@@ -568,7 +590,8 @@ Les pipes sont très puissants. Voici des exemples courants :
 
 ```
 
-[orkin@login1 FILES] grep -v "Colobus" big_file.fasta | wc -l 156
+[orkin@login1 FILES] grep -v "Colobus" big_file.fasta | wc -l 
+156
 
 ```
 
@@ -626,7 +649,18 @@ Souvent, plusieurs utilisateurs partagent le même ordinateur. Afin d’éviter 
 
 ```
 
-[orkin@login1] $ ls -l total 16 drwx------+ 3 dbrown staff 96 Oct 15 14:09 Desktop drwx------+ 3 dbrown staff 96 Oct 15 14:09 Documents ... -rw-r--r-- 1 dbrown staff 9 Oct 15 14:12 expt1.countdata.tsv -rw-r--r-- 1 dbrown staff 20 Oct 15 14:11 notes.txt -rw-r--r-- 1 dbrown staff 23 Oct 16 13:37 print.py
+[orkin@login1 scratch]$ ls -l
+total 8
+drwxr-x---. 2 orkin orkin 4096 Jan 15 19:54 **FILES**
+drwxr-x---. 2 orkin orkin  6 Jan 15 16:49 **MyCode**
+drwxr-x---. 2 orkin orkin  6 Jan 15 19:14 **New_dossier**
+drwxr-x---. 3 orkin orkin 19 Jan 15 16:48 **RawData**
+-rw-r-----. 1 orkin orkin 33 Jan 15 16:57 count.txt
+-rw-r-----. 1 orkin orkin  0 Jan 15 15:16 data.txt
+-rw-r-----. 1 orkin orkin  0 Jan 15 15:16 readme.txt
+-rw-r-----. 1 orkin orkin  0 Jan 15 15:16 results.txt
+drwxr-x---. 2 orkin orkin 32 Jan 15 14:10 **tmp**
+-rw-r-----. 1 orkin orkin  0 Jan 15 15:16 transitions.txt
 
 ```
 
@@ -648,7 +682,12 @@ Pour rendre **print.py** exécutable comme un programme :
 
 ```
 
-[orkin@login1 FILES] $ ls -l print.py -rw-r--r-- 1 orkin staff 23 Oct 16 13:37 print.py [orkin@login1 FILES] $ chmod a+x print.py [orkin@login1 FILES] $ ls -l print.py -rwxr-xr-x 1 orkin staff 23 Oct 16 13:37 print.py [orkin@login1 FILES] $
+[orkin@login1 FILES] $ ls -l print.py 
+-rw-r--r-- 1 orkin staff 23 Oct 16 13:37 print.py 
+[orkin@login1 FILES] $ chmod a+x print.py
+[orkin@login1 FILES] $ ls -l print.py 
+-rwxr-xr-x 1 orkin staff 23 Oct 16 13:37 print.py
+[orkin@login1 FILES] $
 
 ```
 
@@ -657,7 +696,9 @@ Pour empêcher les autres de lire ou d’exécuter le script :
 
 ```
 
-[orkin@login1 FILES] $ chmod o-rx print.py [orkin@login1 FILES] $ ls -l print.py -rwxr-x--- 1 dbrown staff 23 Oct 16 13:37 print.py
+[orkin@login1 FILES] $ chmod o-rx print.py
+[orkin@login1 FILES] $ ls -l print.py 
+-rwxr-x--- 1 dbrown staff 23 Oct 16 13:37 print.py
 
 ```
 
