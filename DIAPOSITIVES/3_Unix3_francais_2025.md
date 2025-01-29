@@ -199,13 +199,8 @@ Commençons par une chaîne de nucléotides et recherchons quelques motifs. Tout
  
 ```
 [orkin@login1 ~]$ 
-echo 'Ce texte est dans le mauvais ordre' | perl -lpe 's/mauvais/bon/ ' 
-
-```
-
-```
-[orkin@login1 ~]$ 
 echo 'Ce texte est dans le mauvas ordre' | perl -lpe 's/mauvais/bon/ ' 
+```
 
 ### Correspondances multiples
 
