@@ -198,8 +198,8 @@ Pour la substitution :  ```echo 'voici un peu de texte' |perl -lne 'print if s//
 Commençons par une chaîne de nucléotides et recherchons quelques motifs. Tout comme sed, perl utilise des barres obliques pour séparer le texte à rechercher et à remplacer. 
  
 ```
-[orkin@login1 ~]$ 
-echo 'Ce texte est dans le mauvas ordre' | perl -lpe 's/mauvais/bon/ ' 
+[orkin@login1 ~]$ echo 'Ce texte est dans le mauvais ordre' | perl -lpe 's/mauvais/bon/ '
+Ce texte est dans le bon ordre 
 ```
 
 ### Correspondances multiples

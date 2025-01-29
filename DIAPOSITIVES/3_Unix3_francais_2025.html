@@ -19,8 +19,7 @@ cd 3_Unix3
 <p>Copiez les fichiers file1.txt, file2.txt, file3.txt et file4.txt du répertoire que vous avez créé la dernière fois (2_Unix_2) dans votre nouveau répertoire 3_Unix_3.</p>
 <p>Après avoir fait cela, téléchargez les fichiers suivants pour cette leçon en copiant, collant et exécutant chaque ligne de ce code.</p>
 <pre><code>wget https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/PROBLEM_SETS/Unix3_problemSet_English.md
-wget https://github.com/nomascus/ANT3814/blob/main/PROBLEM_SETS/Unix3_problemSet_Francais.md
-
+wget https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/PROBLEM_SETS/Unix3_problemSet_Francais.md
 wget https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/FILES/FOXP2.fasta
 wget https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/FILES/FOXP2_long.fasta 
 wget https://raw.githubusercontent.com/nomascus/ANT3814/main/FILES/apol.fasta
@@ -112,7 +111,7 @@ This is ANT3814
 <td>Caractère</td>
 <td>\W</td>
 <td>PAS un caractère de mot [^A-Za-z0-9_]</td>
-<td>file\W\Wtxt</td>
+<td>file\Wtxt</td>
 </tr>
 <tr>
 <td>Caractère</td>
@@ -261,8 +260,8 @@ Pour la substitution :  <code>perl -lne 'print if s///' fichier.txt</code></p>
 <p>Pour la correspondance :  <code>cat fichier.txt | perl -lne 'print if //'</code><br>
 Pour la substitution :  <code>echo 'voici un peu de texte' |perl -lne 'print if s///'</code></p>
 <p>Commençons par une chaîne de nucléotides et recherchons quelques motifs. Tout comme sed, perl utilise des barres obliques pour séparer le texte à rechercher et à remplacer.</p>
-<pre><code>[orkin@login1 ~]$ 
-echo 'Ce texte est dans le mauvas ordre' | perl -lpe 's/mauvais/bon/ ' 
+<pre><code>[orkin@login1 ~]$ echo 'Ce texte est dans le mauvas ordre' | perl -lpe 's/mauvais/bon/ ' 
+Ce texte est dans le bon ordre
 </code></pre>
 <h3 id="correspondances-multiples">Correspondances multiples</h3>
 <p>Parfois, nous avons plus d’une instance de texte correspondant dans une chaîne</p>
