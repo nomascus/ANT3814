@@ -1,4 +1,32 @@
-# Variables Bash, awk et sed
+﻿# ANT3814: Seminar d'anthropologie -  Computational Methods in Molecular Anthropology
+
+
+
+## Cours 2:  Variables Bash, awk et sed
+
+
+#### Pour accéder à la leçon d'aujourd'hui, téléchargez le fichier html appelé 2_Unix2_francais_2025_v2.html depuis studium. Il devrait s'ouvrir avec votre navigateur web.
+
+Commençons par créer un nouveau dossier dans votre cluster pour la leçon de cette semaine. Après vous être connecté, nous commencerons par votre dossier personnel. Descendez ensuite d'un répertoire jusqu'au dossier projects, d'un deuxième répertoire jusqu'au répertoire def-sponsor00, puis d'un troisième répertoire jusqu'au dossier contenant votre USERID (remplacez USERID par votre USERID, quel qu'il soit). Créez ensuite un nouveau dossier appelé 2_Unix2, et déplacez-vous dans ce dossier.
+
+```
+cd ~/projects/def-sponsor00/USERID
+mkdir 2_Unix2 
+cd 2_Unix2
+```
+Après avoir fait cela, téléchargez les fichiers suivants pour cette leçon en copiant, collant et exécutant chaque ligne de ce code.
+
+```
+wget https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/FILES/sample.vcf
+wget https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/FILES/file1.txt
+wget https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/FILES/file2.txt
+wget https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/FILES/file3.txt
+wget https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/FILES/file4.txt
+wget https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/PROBLEM_SETS/Unix2_problemSet_English.md
+wget https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/PROBLEM_SETS/Unix2_problemSet_Francais.md
+wget https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/DIAPOSITIVES/2_Unix2_francais_2025.md
+```
+
 
 ## Variables Bash
 
@@ -51,7 +79,7 @@ C'est le moment idéal pour mentionner comment les variables scalaires peuvent �
 
 #### Variables d'environnement
 
-Lorsque vous nommez des variables en bash, assurez-vous de ne pas écraser accidentellement les variables système internes, appelées variables d'environnement. Beaucoup d'entre elles sont stockées en lettres majuscules. Par exemple, le nom de l'utilisateur actuel et de l'ordinateur est stocké dans ```$USER``` et ```$HOSTNAME```. Pour ceux d'entre vous utilisant une copie de la machine virtuelle Ubuntu, ces deux dernières variables seront identiques.
+Lorsque vous nommez des variables en bash, assurez-vous de ne pas écraser accidentellement les variables système internes, appelées variables d'environnement. Beaucoup d'entre elles sont stockées en lettres majuscules. Par exemple, le nom de l'utilisateur actuel et de l'ordinateur est stocké dans ```$USER``` et ```$HOSTNAME```. 
 
 ```
 [orkin@login1 2_Unix2]$ echo $USER
@@ -59,7 +87,7 @@ orkin
 [orkin@login1 2_Unix2]$ echo $HOSTNAME
 login1.int.ant3814.calculquebec.cloud
 ```
-Le prompt de commande a-t-il plus de sens maintenant ? Une autre façon d'écrire cela serait : ```$USER```@```$HOSTNAME```:```$PWD ```$
+Le prompt de commande a-t-il plus de sens maintenant ? Une autre façon d'écrire cela serait : ```[$USER```@```$HOSTNAME``` ```$PWD ```]$
 
 Cependant, sur notre serveur et pour ceux d'entre nous qui utilisent leur propre ordinateur Mac OSX ou Linux, nous verrons quelque chose de différent. Imaginez comment un grand serveur informatique peut avoir des centaines d'utilisateurs différents, mais il doit s'assurer que chaque utilisateur est envoyé vers le répertoire personnel correct. Lorsque vous vous connectez, le serveur vous attribuera une variable spéciale $USER afin que lorsque vous tapez ```cd ~``` vous soyez envoyé vers le répertoire correct. 
 
@@ -69,11 +97,11 @@ De plus, n'utilisez aucune variable qui soit un nombre, comme ```$0``` ou  ```$1
 [orkin@login1 2_Unix2]$ speciesfinder.py Homo_sapiens speciesList.txt 
 ```
 
-bash interprète une série de chaînes sur la ligne de commande comme une liste ordonnée et les enregistre sous forme de variables numériques commençant par zéro. Dans ce cas, nous avons ```$0```, ```$1```, et  ```$2```. $0 est le script en cours d'exécution, $1 est la chaîne Nomacscus_concolor, et $2 est le fichier speciesList.txt. 
+bash interprète une série de chaînes sur la ligne de commande comme une liste ordonnée et les enregistre sous forme de variables numériques commençant par zéro. Dans ce cas, nous avons ```$0```, ```$1```, et  ```$2```. $0 est le script en cours d'exécution, $1 est la chaîne Homo_sapiens, et $2 est le fichier speciesList.txt. 
 
 Quelles seraient les variables si nous écrivions :
  ```
-[orkin@login1 2_Unix2]$ speciesfinder.py Nomascus concolor speciesList.txt 
+[orkin@login1 2_Unix2]$ speciesfinder.py Homo_sapiens
 ```
 
 Rappelez-vous que les espaces sont importants en Unix. Chaque variable est séparée par un espace.
@@ -124,7 +152,7 @@ Mon en-tête fasta est : >HM757933.1|Pan paniscus isolate PPN-8 SRY. La séquenc
 [orkin@login1 2_Unix2]$ 
 ```
 
-Si vous souhaitez diviser cela sur plusieurs lignes, vous pouvez ajouter le caractère de saut de ligne, mais vous devez indiquer à echo que vous utilisez des caractères spéciaux avec une option -e
+Si vous souhaitez diviser cela sur plusieurs lignes, vous pouvez ajouter le caractère de saut de ligne, **\n**, mais vous devez indiquer à echo que vous utilisez des caractères spéciaux avec une option -e
 
 ```
 [orkin@login1 2_Unix2]$ echo -e "Mon en-tête fasta est : $fastaHeader\nLa séquence nucléotidique correspondante est : $fastaSequence"
@@ -296,7 +324,7 @@ Tout comme ```awk```, ```sed``` est son propre langage, mais il fait des choses 
 
 ```sed 's/ / /'```
 
-Le s indique que vous demandez à ```sed``` d'effectuer une substitution. Les trois barres obliques sont écrites pour séparer deux espaces dans lesquels vous pouvez placer le texte à rechercher, suivi du texte par lequel vous le remplacez. Regardons le fichier4.txt.
+Le s indique que vous demandez à ```sed``` d'effectuer une substitution. Les trois barres obliques sont écrites pour séparer deux espaces dans lesquels vous pouvez placer le texte à rechercher, suivi du texte par lequel vous le remplacez. Regardons le file4.txt.
 
 ```
 [orkin@login1 2_Unix2]$ cat file4.txt
@@ -317,7 +345,7 @@ orange
 Nous pouvons également remplacer une ou plusieurs lettres par n'importe quoi d'autre
 
 ```
-[orkin@login1 2_Unix2]$ sed 's/m/T/' file4.txt
+[orkin@login1 2_Unix2]$ sed 's/o/T/' file4.txt
 frambTise
 pTmme de terre
 raisin
@@ -365,3 +393,4 @@ Lien vers l'énoncé du problème d'aujourd'hui :
 
 Anglais : [Unix2 Problemset](https://github.com/nomascus/ANT3814/blob/main/PROBLEM_SETS/Unix2_problemSet_English.md)  
 Français : [Unix2 Problemset](https://github.com/nomascus/ANT3814/blob/main/PROBLEM_SETS/Unix2_problemSet_Francais.md)
+

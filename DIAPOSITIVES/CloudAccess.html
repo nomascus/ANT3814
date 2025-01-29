@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClusterAccess</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h4 id="se-connecter-à-votre-ordinateur">Se connecter à votre ordinateur</h4>
+<p>Presque tout notre travail dans ce cours sera effectué sur un ordinateur virtuel dans le cloud. Cependant, nous devons y accéder d’une manière particulière. Si vous utilisez un ordinateur Mac ou Linux, c’est très simple : il vous suffit d’ouvrir un programme appelé <strong>Terminal</strong>. En revanche, sous Windows, les choses sont un peu plus compliquées, car ce système n’est pas basé sur Unix. Il vous faudra donc installer deux programmes : <strong>openSSH</strong> et <strong>PowerShell</strong>.</p>
+<h5 id="installation-de-openssh-windows-10">Installation de openSSH (Windows 10)</h5>
+<ol>
+<li>Ouvrez <strong>Settings</strong></li>
+<li>Allez dans <strong>Apps -&gt; Apps &amp; features</strong></li>
+<li>Rendez-vous dans <strong>Optional features</strong> (ou <strong>Add an optional feature</strong> dans la barre de recherche)</li>
+<li>Cliquez sur <strong>Add a feature</strong></li>
+<li>Sélectionnez <strong>OpenSSH client</strong></li>
+<li>Redémarrez l’ordinateur si nécessaire</li>
+</ol>
+<h5 id="installation-de-powershell">Installation de Powershell</h5>
+<ol>
+<li>Ouvrez le <strong>Microsoft Store</strong></li>
+<li>Recherchez <strong>PowerShell</strong></li>
+<li>Installez</li>
+</ol>
+<h4 id="créer-un-compte-sur-notre-serveur-linux-dans-le-cloud">Créer un compte sur notre serveur linux dans le cloud</h4>
+<ol>
+<li>Rendez-vous sur ce site pour créer un compte. Veuillez choisir un nom d’utilisateur court, qui soit simplement votre prénom. Assurez-vous de retenir votre mot de passe !<br>
+<a href="https://mokey.ant3814.calculquebec.cloud/auth/signup">https://mokey.ant3814.calculquebec.cloud/auth/signup</a></li>
+<li>Attendez que je vous donne l’accès au serveur</li>
+</ol>
+<h4 id="faire-apparaître-la-ligne-de-commande">Faire apparaître la ligne de commande</h4>
+<p>Pour faire apparaître la ligne de commande sur Linux, utilisez le <strong>Finder</strong> pour naviguer jusqu’à <em>Applications-&gt;Utilities</em> et double-cliquez sur l’application <strong>Terminal</strong>. Cela ouvrira une fenêtre similaire à :</p>
+<p><img src="https://github.com/nomascus/ANT3814/blob/main/FILES/UbuntuTerminal.png?raw=true" alt="enter image description here"></p>
+<p>Pour faire apparaître la ligne de commande sur Windows, ouvrez <strong>PowerShell</strong>. Cela ouvrira une fenêtre semblable à :</p>
+<p><img src="https://github.com/nomascus/ANT3814/blob/main/FILE/windowsTerminal.png?raw=true" alt="enter image description here"></p>
+<p>Pour faire apparaître la ligne de commande sur Mac, ouvrez <strong>Terminal</strong> depuis le Launchpad. Cela ouvrira une fenêtre semblable à :</p>
+<p><img src="https://github.com/nomascus/ANT3814/blob/main/FILES/macTerminal.png?raw=true" alt="enter image description here"></p>
+<p>Vous pouvez ouvrir plusieurs fenêtres de Terminal en même temps. Cela s’avère souvent pratique. Une façon courante de travailler est d’ouvrir votre éditeur de code dans une fenêtre, d’exécuter votre code dans une deuxième fenêtre et d’observer vos données et vos fichiers dans une troisième.</p>
+<p>Je vous conseille de placer l’icône de Terminal dans la barre de raccourcis en bas de votre écran, puisque vous l’utiliserez fréquemment.</p>
+<h4 id="se-connecter-à-notre-serveur-dans-le-cloud">Se connecter à notre serveur dans le cloud</h4>
+<p>Pour accéder au serveur, vous devez taper la commande <strong>ssh</strong>, qui signifie “secure shell”. Elle ouvre un tunnel chiffré vers l’ordinateur distant dans le cloud.</p>
+<pre><code>
+ssh userid@ant3814.calculquebec.cloud
+
+</code></pre>
+<p>Par exemple, pour mon nom d’utilisateur :</p>
+<pre><code>
+ssh orkin@ant3814.calculquebec.cloud
+
+</code></pre>
+<p>Appuyez ensuite sur la touche Enter.</p>
+<p>Si le terminal vous demande de confirmer une empreinte de sécurité, tapez <strong>yes</strong> et appuyez sur Enter.</p>
+<p>Ensuite, entrez le mot de passe que vous avez défini en créant votre compte, puis appuyez sur Enter. Vous ne verrez pas de caractères s’afficher pendant que vous saisissez votre mot de passe, ce qui est une mesure de sécurité. Votre écran de terminal devrait ressembler à ceci :</p>
+<p><img src="https://github.com/nomascus/ANT3814/blob/main/FILES/cloudTerminal.png?raw=true" alt="enter image description here"></p>
+<p>Vous êtes maintenant connecté à un cluster de serveurs Linux dans le cloud. Bravo !</p>
+</div>
+</body>
+
+</html>

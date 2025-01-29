@@ -158,8 +158,8 @@ What if we added added a space after la queue?
 
 Lets try a few of these out. Rather than using ```sed``` which is a bit limited in it's functionality, we can use another more robust language called **perl**. Perl is an extremely powerful coding language that used to be more common, but is mostly being replaced with **python**. Nonetheless, perl is still the best language for regular expressions and easily called from the command line. If we want to stream text into perl to use regular expressions type, ```perl -lpe ' '``` The '-lpe' options tells perl that the incoming command should be executed ( e ) line by line ( l ) and printed ( p ). Be careful though! The ```-lpe``` option will print all lines in the file (even those that dont't match) changing only those that you tell it to. A safer way is to tell perl to use the ``` -lne``` option that does not automatically print all lines. If you want  to print only the lines that match the conditions, you can tell perl to "print if", using the following structure:
 
-For matching:  ```perl -lne ''print if //' file.txt```
-For substitution:  ```perl -lne ''print if s///' file.txt```
+For matching:  ```perl -lne 'print if //' file.txt```
+For substitution:  ```perl -lne 'print if s///' file.txt```
 
 Instead of putting the file at the end, you can also cat the file or echo the text into perl like this
 
@@ -222,7 +222,7 @@ we start by breaking into four pieces, which correspond to numbered scalar varia
 |Text|Variable| regular expression
 |-|-|-|
 |Ce|$1|^(\w+ )| 
-|order|$2|(order)|
+|ordre|$2|(ordre)|
 |est dans le bon|$3|(.+)
 |texte|$4|(texte)$|
 
