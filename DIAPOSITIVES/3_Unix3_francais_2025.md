@@ -16,7 +16,8 @@ Après avoir fait cela, téléchargez les fichiers suivants pour cette leçon en
 wget https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/PROBLEM_SETS/Unix3_problemSet_English.md
 wget https://github.com/nomascus/ANT3814/blob/main/PROBLEM_SETS/Unix3_problemSet_Francais.md
 
-wget 
+wget https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/FILES/FOXP2.fasta
+wget https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/FILES/FOXP2_long.fasta 
 wget https://raw.githubusercontent.com/nomascus/ANT3814/main/FILES/apol.fasta
 wget https://raw.githubusercontent.com/nomascus/ANT3814/main/FILES/unix3.fasta
 wget https://raw.githubusercontent.com/nomascus/ANT3814/main/FILES/nobody.txt
