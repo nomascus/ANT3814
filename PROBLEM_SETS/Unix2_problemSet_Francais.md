@@ -21,9 +21,9 @@ Utilisez la ligne de commande pour répondre à toutes les questions suivantes. 
 Téléchargez la séquence génique du gène de l'insuline humaine (INS) à partir d'ici : 
 https://raw.githubusercontent.com/nomascus/ANT3814/main/FILES/INS_gene.fasta
 
-9) Utilisez grep -v pour extraire la ligne d'en-tête et enregistrez-la en tant que variable appelée $headerINS
+9) Utilisez grep pour extraire la ligne d'en-tête et enregistrez-la en tant que variable appelée $headerINS
 
-10) Utilisez grep pour extraire les lignes de séquence et enregistrez-les en tant que variable appelée $sequenceINS.
+10) Utilisez grep -v pour extraire les lignes de séquence et enregistrez-les en tant que variable appelée $sequenceINS.
 
 11) Affichez $sequenceINS à l'écran. Pourquoi y a-t-il des espaces entre chaque ligne de séquence ?
 
