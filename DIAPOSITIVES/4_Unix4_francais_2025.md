@@ -44,9 +44,9 @@ C'est mieux, mais nous écrivons toujours cinq commandes séparées avec beaucou
 |créer une nouvelle variable temporaire appelée « prenom » à utiliser dans la boucle| prenom|
 |dirige bash vers l'emplacement de la liste de prénoms|in|
 |liste de prénoms|Camilia Etienne Francis Justine Medrick|
-|commencer à exécuter la boucle|do;|
-|Indiquer à bash d'imprimer « Bonjour » avant chaque prénom | echo Bonjour $prenom;|
-|fermer la boucle|done;|
+|commencer à exécuter la boucle|do|
+|Indiquer à bash d'imprimer « Bonjour » avant chaque prénom | echo Bonjour $prenom|
+|fermer la boucle|done|
 
 ```
 [orkin@login1 4_Unix4]$ for prenom in Camilia Etienne Francis Justine Medrick Yacine; do echo "Bonjour $prenom"; done
@@ -91,7 +91,7 @@ for number in 1 2 3 4 5 6 7 8 9; do mv file${number}.txt file0${number}.txt ; do
 Attention, cependant ! Créer une boucle qui renomme vos fichiers est dangereux, car vous pouvez accidentellement mélanger tous vos fichiers ou les effacer en cas d'erreur dans votre code. **Testez toujours votre boucle en ajoutant echo** à la commande d'abord pour voir si le code est correct.
 
  ```
-[orkin@login1 4_Unix4]/FILES$ for number in 1 2 3 4 5 6 7 8 9; do echo "mv file${number}.txt file0${number}.txt" ; done
+[orkin@login1 FILES]$ for number in 1 2 3 4 5 6 7 8 9; do echo "mv file${number}.txt file0${number}.txt" ; done
 mv file1.txt file01.txt
 mv file2.txt file02.txt
 mv file3.txt file03.txt
@@ -106,7 +106,7 @@ mv file9.txt file09.txt
 Ici, nous utilisons la boucle pour imprimer d'abord les commandes à l'écran. Une fois que tout semble bon, vous pouvez supprimer la commande echo et exécuter le code pour renommer les fichiers.
 
 ```
-[orkin@login1 4_Unix4]/FILES$ ls 
+[orkin@login1 FILES]$ ls 
 file01.txt file06.txt file11.txt file16.txt file21.txt file26.txt file31.txt file36.txt file41.txt file46.txt
 file02.txt file07.txt file12.txt file17.txt file22.txt file27.txt file32.txt file37.txt file42.txt file47.txt
 file03.txt file08.txt file13.txt file18.txt file23.txt file28.txt file33.txt file38.txt file43.txt file48.txt
@@ -296,8 +296,11 @@ Comme dans la ligne 4, nous sauvegardons une autre partie de la ligne de métado
 Tout d'abord, nous exécutons une commande ```echo```, car nous voulons afficher les résultats de tout ce qui se trouve entre guillemets à l'écran. Nous commençons par appeler le programme bwa mem, puis nous lui fournissons quatre informations : les fichiers de lecture de séquençage avant et arrière, le génome de référence et le nom du fichier de sortie. Nous insérons les variables que nous avons créées avec awk ($ID et $ref) dans la chaîne de texte.
 
 ${ID}_F.fasta -> Lemur_catta_LC_01_F.fasta
+
 ${ID}_R.fasta -> Lemur_catta_LC_01_R.fasta
+
 $ref -> mLemcat1.fa 
+
 ${ID}.sam -> Lemur_catta_LC_01.sam
 
 **Ligne 7**
