@@ -484,7 +484,6 @@ N'oubliez pas de passer en **Mode Commande** avec la touche `<esc>`
 |Touches fléchées  | déplacer le curseur |  
 |`j`, `k`, `h`, `l` | déplacer le curseur vers le bas, vers le haut, vers la gauche et vers la droite (similaire aux touches fléchées) |  
 |`0` (zéro) | déplacer le curseur au début de la ligne actuelle |  
-
 |`^` (accent circonflexe) | déplacer le curseur au début de la ligne actuelle |  
 |`$`  |  déplacer le curseur à la fin de la ligne actuelle |  
 |`:n` | aller à la n-ième ligne du fichier |  
