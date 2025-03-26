@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selection French</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h2 id="tester-la-sélection-naturelle-avec-les-modèles-de-codons">Tester la sélection naturelle avec les modèles de codons</h2>
+<p>Une manière d’identifier la sélection naturelle est de tester la quantité de mutations qui ont causé des changements d’acides aminés dans les gènes codant pour des protéines. Ces types de tests sont réalisés en comparant le ratio de changements non-synonymes à synonymes dans une ou plusieurs espèces avec le ratio dans d’autres espèces d’un arbre phylogénétique.</p>
+<p>Rappelez-vous que chaque séquence protéique est composée d’acides aminés codés par des groupes de trois nucléotides, appelés codons. Par exemple :</p>
+<p>AAA, AGG, TTC</p>
+<p>code pour</p>
+<p>Lysine (K), Arginine (R), Phénylalanine (F)</p>
+<p>Mais si vous changez la séquence en</p>
+<p>AA<strong>G</strong>, AGG, T<strong>C</strong>C</p>
+<p>cela code pour</p>
+<p>Lysine (K), Arginine ®, Sérine (S)</p>
+<p>La première substitution AA<strong>A</strong> -&gt; AA<strong>G</strong> n’a pas causé de changement d’acide aminé (Lysine dans les deux cas), et est donc appelée une substitution <strong>synonyme</strong>. En général, ces substitutions n’ont aucun effet sur la protéine.</p>
+<p>La deuxième substitution TT<strong>C</strong> -&gt; TC<strong>C</strong> a causé un changement d’acide aminé (Phénylalanine en Sérine), et est donc appelée une substitution <strong>non-synonyme</strong>. Ces substitutions peuvent avoir un effet majeur sur la protéine.</p>
+<p>Le ratio de substitutions synonymes à non-synonymes dans un gène est appelé le <strong>ratio dN/dS</strong>.<br>
+Quand le ratio <strong>dN/dS</strong>.</p>
+
+<table>
+<thead>
+<tr>
+<th>dN/dS</th>
+<th>Sélection</th>
+<th>Interprétation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dN/dS &lt; 1</td>
+<td>Négative (purificatrice)</td>
+<td>Les mutations nocives sont éliminées, gardant la séquence d’ADN conservée</td>
+</tr>
+<tr>
+<td>dN/dS &gt; 1</td>
+<td>Positive (diversifiante)</td>
+<td>Des mutations bénéfiques sont survenues et sont maintenues</td>
+</tr>
+<tr>
+<td>dN/dS ~ 1</td>
+<td>Aucune (neutre)</td>
+<td>Les mutations ont peu d’effet et bien que la séquence d’ADN change, cela a peu d’effet sur l’espèce</td>
+</tr>
+</tbody>
+</table><h3 id="tester-la-sélection-avec-absrel-et-relax">Tester la sélection avec aBSREL et RELAX</h3>
+<p>Il existe de nombreux programmes qui utilisent les ratios dN/dS pour tester la sélection dans une espèce par rapport à d’autres espèces étroitement apparentées. Le programme le plus largement utilisé s’appelle PAML, mais il n’est pas très convivial. Nous allons utiliser un package appelé HyPhy qui comprend de nombreux programmes pour l’analyse de la sélection naturelle. Chacun de ces programmes teste la sélection de manière légèrement différente. Par exemple, certains d’entre eux recherchent des preuves de sélection sur une branche unique d’une phylogénie. Cela pourrait être une espèce individuelle (par exemple, les humains) ou la branche ancestrale qui conduit à plusieurs espèces (par exemple, la branche conduisant aux humains, chimpanzés et bonobos).</p>
+<p>aBSREL (<strong>a</strong>daptive <strong>B</strong>ranch-<strong>S</strong>ite <strong>R</strong>andom <strong>E</strong>ffects <strong>L</strong>ikelihood) teste si une sélection positive s’est produite sur une proportion de branches. aBSREL testera, pour chaque branche (ou branche d’intérêt) de la phylogénie, si une proportion de sites ont évolué sous sélection positive en utilisant un test de rapport de vraisemblance.</p>
+<p>Nous pouvons exécuter aBSREL dans le package HyPhy,</p>
+<pre><code>hyphy absrel ADH_nucleotide_RELAX_alignment.nex
+</code></pre>
+<p>Dans ce cas, nous recherchons des valeurs dN/dS significativement &gt;1 sur chaque branche de l’arbre phylogénétique pour le gène ADH4. Ce gène est impliqué dans le métabolisme de l’alcool. Les grands singes sont connus pour avoir une substitution qui augmente la capacité à métaboliser l’alcool, ce qui nous donne une tolérance plus élevée. Les fruits en décomposition fermentent, et de nombreux animaux ont été observés en train de les manger et semblent devenir ivres.</p>
+<p>Les résultats de aBSREL sont enregistrés dans un fichier JSON qui peut être ouvert en ligne dans <a href="vision.hyphy.org">hyphy vision</a>. La seule branche avec une preuve significative de sélection positive (p &lt; 0,05) est la branche menant aux éléphants (nœud 140).</p>
+<pre><code>wget https://raw.githubusercontent.com/nomascus/ANT3814/main/FILES/RELAX/ADH_nucleotide_RELAX_alignment.label.50Plus.nex
+</code></pre>
+<p>RELAX est un programme HyPhy qui utilise un cadre de test d’hypothèse pour déterminer si la force de la sélection naturelle a été relâchée ou intensifiée le long d’un ensemble spécifié de branches de test. RELAX n’est donc pas une méthode appropriée pour tester explicitement la sélection positive. Au lieu de cela, RELAX est le plus utile pour identifier des tendances et/ou des changements dans la rigueur de la sélection naturelle sur un gène donné.</p>
+<p>RELAX nécessite un ensemble spécifié de branches de “test” à comparer avec un deuxième ensemble de branches de “référence”. RELAX teste ensuite le relâchement/intensification de la sélection en introduisant le paramètre <strong>k</strong> (où k≥0), servant de <strong>paramètre d’intensité de la sélection</strong>. RELAX effectue ensuite un test de rapport de vraisemblance pour comparer les modèles alternatifs et nuls. Un résultat significatif de <strong>k&gt;1 indique que la force de la sélection a été intensifiée</strong> le long des branches de test, et un résultat significatif de <strong>k&lt;1 indique que la force de la sélection a été relâchée</strong> le long des branches de test.</p>
+<p>RELAX nécessite un ensemble de données avec un alignement de codons et un arbre phylogénétique qui étiquette les espèces appartenant à différents groupes d’intérêt.</p>
+<pre><code>hyphy relax --alignment ADH_nucleotide_RELAX_alignment.label.50Plus.nex --test FRUIT-NECTAR --reference OTHERDIETS
+</code></pre>
+<h1 id="série-de-problèmes">Série de problèmes</h1>
+<blockquote>
+<p>installez hyphy sur la machine virtuelle. Exécutez chaque commande une ligne à la fois !</p>
+</blockquote>
+<pre><code>cd scratch
+git clone https://github.com/veg/hyphy.git
+cd hyphy
+cmake -DCMAKE_INSTALL_PREFIX=/home/USERID/scratch/hyphy .
+make MP
+make install
+mkdir Tutorials
+cd Tutorials
+wget https://raw.githubusercontent.com/veg/hyphy-tutorials/master/docs/selection/data/files.zip
+unzip files.zip
+</code></pre>
+<p>Téléchargez les fichiers ADH_IV à partir du site web du cours</p>
+<pre><code>mkdir ADH_IV
+cd ADH_IV
+
+wget https://raw.githubusercontent.com/nomascus/ANT3814/main/FILES/RELAX/ADH_nucleotide_RELAX_alignment.label.50Plus.nex
+
+</code></pre>
+<p>Pour exécuter hyphy, saisissez (mais remplacez USERID par votre identifiant utilisateur)&nbsp;:</p>
+<p>/home/USERID/scratch/hyphy/bin/hyphy</p>
+<p>suivi du programme, par exemple&nbsp;:</p>
+<p>/home/USERID/scratch/hyphy/bin/hyphy absrel<br>
+/home/USERID/scratch/hyphy/bin/hyphy relax<br>
+/home/USERID/scratch/hyphy/bin/hyphy fel</p>
+<p>Découvrez les différentes méthodes hyphy ici&nbsp;:<br>
+<a href="https://hyphy.org/methods/selection-methods/">https://hyphy.org/methods/selection-methods/</a></p>
+<p>Visualisez vos résultats avec hyphy vision ici&nbsp;:<br>
+<a href="http://vision.hyphy.org/">http://vision.hyphy.org/</a></p>
+<ol>
+<li>
+<p>Ces données sont au format nexus. Quelles sont les trois principales sortes d’informations dans ce fichier?</p>
+</li>
+<li>
+<p>Comparez l’arbre au bas du fichier nexus avec l’arbre que vous avez construit au dernier cours. Qu’est-ce qui est différent dans cet arbre?</p>
+</li>
+<li>
+<p>Lancez HyPhy et exécutez RELAX sur l’ensemble de données ADH_IV. Cela prendra plusieurs minutes.</p>
+</li>
+<li>
+<p>Ouvrez le fichier JSON dans HyPhy vision. Y a-t-il des preuves de sélection relâchée ou intensifiée? Comment pouvez-vous le dire?</p>
+</li>
+<li>
+<p>Téléchargez les fichiers MORC2:</p>
+</li>
+</ol>
+<pre><code>mkdir MORC2 
+cd MORC2
+wget https://raw.githubusercontent.com/nomascus/ANT3814/main/FILES/RELAX/MORC2_sim_muscleco_Name.fasta
+wget https://raw.githubusercontent.com/nomascus/ANT3814/main/FILES/RELAX/MORC2_species.nwk
+</code></pre>
+<ol start="6">
+<li>
+<p>Exécutez aBSREL avec l’alignement de codons MORC2 et l’arbre des primates. Que fait ce gène? Y a-t-il des preuves de sélection positive sur certaines branches?</p>
+</li>
+<li>
+<p>Exécutez FEL dans HyPhy avec l’alignement de codons MORC2 et l’arbre des primates. Y a-t-il des preuves de sélection positive sur certains sites?</p>
+</li>
+</ol>
+</div>
+</body>
+
+</html>

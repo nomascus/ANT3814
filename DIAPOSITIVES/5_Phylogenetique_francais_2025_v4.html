@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phylogenetics_French</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="phylogénétique-moléculaire">Phylogénétique moléculaire</h1>
+<h2 id="programmes-à-installer">Programmes à installer</h2>
+<p>Si l’environnement d’exécution Java n’est pas encore installé sur votre ordinateur, vous devrez d’abord le faire. Java est un langage informatique courant et deux des programmes suivants sont écrits dans ce langage. Plusieurs versions sont disponibles sur le site web de Java :<br>
+<a href="https://www.java.com/en/download/manual.jsp">https://www.java.com/en/download/manual.jsp</a></p>
+<p>vous avez probablement besoin de la version <a href="https://javadl.oracle.com/webapps/download/AutoDL?BundleId=251654_7ed26d28139143f38c58992680c214a5">Windows En ligne</a> ou la version <a href="https://javadl.oracle.com/webapps/download/AutoDL?BundleId=251649_7ed26d28139143f38c58992680c214a5">macOS x64</a>.</p>
+<p>Après le téléchargement et l’installation sur un mac, vous devrez peut-être autoriser Java à accéder aux fichiers de votre ordinateur. Ne vous inquiétez pas des avertissements concernant les logiciels malveillants. Il s’agit d’un logiciel TRES courant et sûr.</p>
+<p><strong>AliView</strong></p>
+<p>(version exe pour Windows uniquement)<br>
+<a href="https://ormbunkar.se/aliview/downloads/windows/windows-version-1.30/without_installer_version/AliView.exe">https://ormbunkar.se/aliview/downloads/windows/windows-version-1.30/without_installer_version/AliView.exe</a></p>
+<p>(version Java pour Mac ou Windows)<br>
+<a href="https://ormbunkar.se/aliview/downloads/windows/windows-version-1.30/without_installer_version/aliview.jar">https://ormbunkar.se/aliview/downloads/windows/windows-version-1.30/without_installer_version/aliview.jar</a></p>
+<p>Lors de l’ouverture sur un Mac, il se peut que vous deviez faire un clic droit sur le fichier et l’approuver, car il s’agit d’un programme téléchargé à partir d’Internet. Encore une fois, il s’agit d’un logiciel très sûr, mais les programmes bioinformatiques ne sont généralement pas disponibles dans le magasin d’applications, et OSX demande donc d’être prudent.</p>
+<p><strong>Figtree</strong></p>
+<p>Version Windows :<br>
+<a href="https://github.com/rambaut/figtree/releases/download/v1.4.4/FigTree.v1.4.4.zip">https://github.com/rambaut/figtree/releases/download/v1.4.4/FigTree.v1.4.4.zip</a></p>
+<p>Version Mac :<br>
+<a href="https://github.com/rambaut/figtree/releases/download/v1.4.4/FigTree.v1.4.4.dmg">https://github.com/rambaut/figtree/releases/download/v1.4.4/FigTree.v1.4.4.dmg</a></p>
+<p>Lors de l’ouverture sur un Mac, il se peut que vous deviez faire un clic droit sur le fichier et l’approuver, car il s’agit d’un programme téléchargé à partir d’Internet. Encore une fois, il s’agit d’un logiciel très sûr, mais les programmes bioinformatiques ne sont généralement pas disponibles dans le magasin d’applications, et OSX demande donc d’être prudent.</p>
+<p><strong>iqtree2</strong> et <strong>Gblocks</strong> sont disponibles dans le dossier partagé des programmes de la classe. Pour vous donner accès, copiez et exécutez exactement cette ligne de code (<strong>NE changez PAS</strong> <code>orkin</code> par votre identifiant, et assurez-vous d’utiliser <code>&gt;&gt;</code> au lieu de <code>&gt;</code>):</p>
+<pre><code>echo 'export PATH=/scratch/orkin/shared/bin:$PATH' &gt;&gt; ~/.bashrc
+</code></pre>
+<p>Puis copiez et exécutez cette ligne de code exactement :</p>
+<pre><code>source ~/.bashrc
+</code></pre>
+<p><strong>mafft</strong> est déjà disponible pour tous les utilisateurs du serveur en tant que module de programme. Pour charger un module existant sur le serveur, utilisez la commande <code>module load</code>, qui a la syntaxe suivante :</p>
+<pre class=" language-bash"><code class="prism  language-bash"><span class="token punctuation">[</span>orkin@login1 orkin<span class="token punctuation">]</span>$ module load program-name
+</code></pre>
+<p>Pour mafft, utilisez :</p>
+<pre class=" language-bash"><code class="prism  language-bash"><span class="token punctuation">[</span>orkin@login1 orkin<span class="token punctuation">]</span>$ module load mafft
+</code></pre>
+<p>Enfin, créez un nouveau dossier pour les exercices d’aujourd’hui :</p>
+<pre class=" language-bash"><code class="prism  language-bash"><span class="token punctuation">[</span>orkin@login1 orkin<span class="token punctuation">]</span>$ <span class="token function">mkdir</span> 5_Phylogenetics
+</code></pre>
+<hr>
+<h2 id="téléchargement-des-séquences-nucléotidiques">Téléchargement des séquences nucléotidiques</h2>
+<p>Afin de construire un arbre phylogénétique, nous devons commencer par télécharger des données. Il est important que les séquences nucléotidiques que nous utilisons proviennent de la même région du génome pour chaque espèce. Cela nous permet de comparer comment les mêmes positions dans le génome varient à travers un grand nombre d’espèces.</p>
+<p>Commençons par aller sur <strong>GenBank</strong>, une base de données de séquences d’ADN accessibles au public, gérée par les <strong>National Institutes of Health (NIH)</strong>. Il existe de nombreuses bases de données au sein de <strong>NCBI</strong> qui stockent des données moléculaires, mais aujourd’hui nous allons travailler avec des données nucléotidiques.</p>
+<p><a href="https://www.ncbi.nlm.nih.gov/nucleotide/">https://www.ncbi.nlm.nih.gov/nucleotide/</a></p>
+<p>Vous pouvez rechercher ici tout type de séquence nucléotidique, car elle est cataloguée à partir des soumissions effectuées par les scientifiques lorsqu’ils publient leurs articles. Commençons par rechercher de l’ADN mitochondrial de primates. En tapant le nom de l’espèce (ou parfois le nom commun) suivi de “mitochondrion”, nous obtiendrons une liste des séquences mitochondriales humaines disponibles. Il y en a beaucoup. Parfois, pour d’autres espèces moins étudiées, vous ne trouverez que des fragments de gènes ou quelques individus, mais les bases de données comme <strong>GenBank</strong> s’enrichissent et deviennent plus complètes avec le temps. Le fichier <strong>GenBank</strong> fournit de nombreuses informations sur la séquence, notamment sur les gènes présents dans chaque région du fichier nucléotidique. Généralement, nous voulons simplement télécharger les séquences <strong>FASTA</strong>, ce que vous pouvez faire en cliquant sur <strong>send to</strong>, puis <strong>file</strong>, puis en changeant le format en <strong>FASTA</strong>.</p>
+<p>Cependant, j’ai déjà préparé quelques fichiers FASTA de génomes mitochondriaux pour commencer. Vous pouvez les télécharger ici :</p>
+<p><a href="https://raw.githubusercontent.com/nomascus/ANT3814/main/FILES/DNA/primate_mitogenomes.fasta">https://raw.githubusercontent.com/nomascus/ANT3814/main/FILES/DNA/primate_mitogenomes.fasta</a></p>
+<p>Jetons un œil au fichier avec la commande <code>less</code>. Vous vous souvenez du format d’un fichier FASTA ?</p>
+<p>Il y a deux types de lignes : les en-têtes qui commencent par un caractère <code>&gt;</code> et les lignes de séquences. Un fichier FASTA contenant plusieurs séquences peut être distingué par son motif de lignes, car chaque ligne commençant par le symbole <code>&gt;</code> représente une nouvelle séquence.</p>
+<p>Examinons ce fichier d’une manière qui met mieux en évidence les différences en l’ouvrant avec un <strong>visualiseur d’alignement</strong> appelé <strong>AliView</strong>.</p>
+<p>Mais d’abord, vous devez télécharger le fichier <strong>primate_mitogenomes.fasta</strong> sur votre ordinateur. Pour télécharger le fichier d’alignement du serveur de cours vers votre ordinateur, utilisez une commande appelée <code>scp</code>, qui est une version sécurisée de la commande <code>cp</code> permettant de transférer des fichiers entre différents ordinateurs. Exécutez toujours cette commande depuis un dossier sur votre ordinateur personnel. <strong>NE PAS</strong> l’exécuter depuis le cluster. Voici le format de la commande, qui diffère légèrement entre Windows et Mac/Linux :</p>
+<pre><code>scp userID@server-location:chemin-vers-fichier-sur-serveur/fichier chemin-vers-fichier-sur-ordinateur
+</code></pre>
+<p><em>WINDOWS</em></p>
+<pre><code>scp userid@ant3814.calculquebec.cloud:/home/projects/userid/5_Phylogenetics/primate_mitogenomes.fasta C:\Users\VotreNom\Downloads
+</code></pre>
+<p><em>MAC/Linux</em></p>
+<pre><code>scp userid@ant3814.calculquebec.cloud:/home/projects/userid/5_Phylogenetics/primate_mitogenomes.fasta ~/Downloads
+</code></pre>
+<p>Ce que nous voyons ici, c’est chaque séquence dans une rangée. Les en-têtes sont à gauche et la séquence est à droite. Chaque type de nucléotide a une couleur différente : A est vert, T est rouge, C est bleu et G est gris.</p>
+<p>Remarquez qu’il semble y avoir un modèle à certains endroits, mais pas à d’autres. Les nucléotides des premières colonnes sont pour la plupart alignés, mais ils semblent se désorganiser autour de la position 20. En outre, faisons défiler les fichiers jusqu’à la fin et voyons comment la situation devient beaucoup plus désordonnée. À ce stade, nous pouvons également constater que tous les fichiers n’ont pas la même longueur. Si nous voulons comparer les nucléotides à chaque position pour toutes les espèces, nous devons les aligner.</p>
+<h2 id="alignement-de-séquences">Alignement de séquences</h2>
+<p>L’alignement des séquences est un processus compliqué, et nous n’entrerons pas dans les détails ici. Cependant, l’idée de base est que les régions similaires de l’ADN peuvent être alignées sur toutes les séquences, parce que toutes les espèces partagent une histoire évolutive.  Au fil du temps, les séquences d’ADN deviennent de plus en plus différentes entre deux espèces, sous l’effet de la mutation, de la dérive et de la sélection. Lorsque nous alignons deux séquences qui ont divergé l’une de l’autre, il est évident qu’elles ne s’alignent pas parfaitement. Certains nucléotides diffèrent en raison de mutations. Mais parfois, il y aura une insertion ou une délétion d’un ou plusieurs nucléotides dans la séquence d’une espèce qui peut provoquer l’apparition d’un décalage dans la séquence. Afin de compenser ces insertions et ces deletions, nous devons introduire des lacunes dans l’alignement pour certaines espèces.</p>
+<p>Alignons nos séquences avec un programme appelé <strong>mafft</strong>. mafft est très rapide et peut choisir automatiquement les options pour votre alignement. Sauvegardez l’alignement sous primate_mitogenomes.aligned.fasta</p>
+<pre><code>[orkin@login1 5_Phylogenetics]$ module load mafft
+[orkin@login1 5_Phylogenetics]$ mafft --auto primate_mitogenomes.fasta &gt; primate_mitogenomes.aligned.fasta
+</code></pre>
+<p>Téléchargez-le ensuite sur votre ordinateur personnel avec scp</p>
+<pre><code>scp userid@ant3814.calculquebec.cloud:/home/projects/userid/5_Phyogenetics/primate_mitogenomes.aligned.fasta C:\Users\VotreNom\Downloads
+</code></pre>
+<p>Regardons maintenant le fichier aligné dans AliView. Remarquez d’abord qu’il n’y a que deux espèces avec une séquence au début de l’alignement, l’homme et le chat. Les autres espèces ne peuvent pas être alignées ici et présentent des lacunes signifiées par les tirets. Cela est probablement dû au fait que les fichiers sont de longueurs légèrement différentes. Passons maintenant à l’endroit où l’alignement devient visible pour toutes les espèces, vers la position 976. Nous pouvons voir qu’il y a des régions très conservées, où la séquence ne varie pas beaucoup, comme les positions 1000 - 1020, mais dans d’autres régions, il y a beaucoup de variations, comme 1030 - 1040. Parfois, cela est dû au fait que la région d’ADN fait partie d’un gène qui subit une pression de sélection pour ne pas changer. Dans d’autres cas, il peut s’agir d’une région du génome qui est tout simplement difficile à aligner.</p>
+<h2 id="nettoyage-de-lalignement">Nettoyage de l’alignement</h2>
+<p>En général, les alignements comportant de nombreuses lacunes posent des problèmes pour la construction d’arbres phylogénétiques. Nous devons donc nettoyer cet alignement en supprimant les régions mal alignées. Le choix des régions à supprimer est un processus difficile qui peut s’avérer écrasant lorsque l’on construit plusieurs alignements à partir de différentes régions génétiques. Heureusement, des programmes ont été développés pour automatiser ce processus. Nous pouvons en utiliser un appelé <strong>Gblocks</strong>.</p>
+<pre><code>[orkin@login1 5_Phylogenetics]$ Gblocks primate_mitogenomes.aligned.fasta -t=d
+</code></pre>
+<p>l’option -t=d indique au programme qu’il s’agit de séquences d’ADN. Le fichier d’alignement nettoyé est nommé primate_mitogenomes.aligned.fasta-gb mais renommons-le pour garder fasta à la fin</p>
+<pre><code>[orkin@login1 5_Phylogenetics]$ mv primate_mitogenomes.aligned.fasta-gb primate_mitogenomes.aligned.gb.fasta
+</code></pre>
+<p>Maintenant, regardons l’alignement nettoyé. Nous nous sommes débarrassés de toutes les régions mal alignées, et nous pouvons commencer à voir comment des schémas de relations peuvent être présents dans les données.</p>
+<p><strong>Note</strong> Gblocks n’aime pas les noms d’en-tête trop longs. Si vous obtenez une erreur à ce sujet, assurez-vous de les raccourcir en éditant les noms dans vi.</p>
+<h2 id="construire-un-arbre-avec-iqtree">Construire un arbre avec IQTREE</h2>
+<p>Il existe de nombreux programmes et méthodes différents pour construire des arbres phylogénétiques. Il s’agit notamment de l’association de voisins, de l’UPGMA, du maximum de vraisemblance et des approches bayésiennes, entre autres. Dans de nombreuses universités, un cours de biologie entier est consacré à la phylogénétique moléculaire, mais notre objectif aujourd’hui est de construire un arbre à partir de nos données mitochondriales afin que vous puissiez comprendre les bases du fonctionnement de ce processus. Nous allons utiliser un programme appelé IQTREE pour construire un arbre de maximum de vraisemblance.</p>
+<p>La première étape du processus de construction de l’arbre consiste à identifier le <strong>modèle de substitution</strong> des nucléotides, qui est un modèle de la probabilité qu’un type de nucléotide (ou d’acide aminé) se transforme en un autre. Par exemple, quelle est la probabilité qu’une purine se transforme en une autre purine plutôt qu’en une pyrimidine. Ces modèles filtrent la complexité du processus de mutation biologique en schémas plus simples qui peuvent être décrits et prédits à l’aide d’un petit nombre de paramètres. Les modèles de substitution tentent de prédire le taux de substitution des nucléotides ou d’un site donné, ainsi que la distribution des substitutions sur l’ensemble de la séquence. Il s’agit d’un processus très compliqué, mais heureusement, IQTREE l’automatise pour nous.</p>
+<pre><code>[orkin@login1 5_Phylogenetics]$ iqtree2 -s primate_mitogenomes.aligned.gb.fasta -m MFP -pre primate_mitogenomes.aligned.gb.mod
+</code></pre>
+<p>Nous pouvons voir dans le fichier de sortie (primate_mitogenomes.aligned.gb.mod.iqtree ) que le modèle GTR+F+I+G4 correspond le mieux aux données. Utilisons maintenant ces informations pour reconstruire l’arbre phylogénétique</p>
+<pre><code>[orkin@login1 5_Phylogenetics]$ iqtree2 -s primate_mitogenomes.aligned.gb.fasta -m GTR+F+I+G4 -pre primate_mitogenomes.aligned.gb.mod -redo
+</code></pre>
+<p>Nous allons télécharger le fichier d’arbre avec scp puis l’ouvrir dans <strong>figtree</strong> sur votre ordinateur.</p>
+<p>Remarquez ici que l’arbre a l’air un peu bizarre. C’est parce qu’il s’agit d’un arbre <strong>non enraciné</strong>. Cela signifie que nous n’avons pas assigné l’une des espèces en tant qu’outgroup connu au reste des espèces. Par exemple, si nous avions un petit arbre composé de chimpanzés, de gorilles, d’humains et de macaques, nous pourrions placer les macaques à la racine de l’arbre, car nous savons qu’ils sont les parents les plus éloignés. Nous pouvons faire la même chose dans notre arbre. Nous savons que les chats et les chiens sont tous deux des carnivores et qu’ils sont plus éloignés des autres espèces de notre arbre. Choisissons les carnivores comme racine, en cliquant sur la branche menant aux chats et aux chiens, puis en cliquant sur <strong>reroot</strong>. L’arbre est maintenant beaucoup plus sensé !</p>
+<p>Il y a encore une chose que nous devons faire. Nous avons trouvé les séparations entre les taxons avec notre arbre, mais nous ne savons pas à quel point ces séparations sont fiables. Devons-nous leur faire confiance ? Nous pouvons tester la fiabilité d’une phylogénie basée sur des séquences à l’aide d’un processus statistique appelé <strong>bootstrapping</strong> . Le bootstrapping remanie les données d’entrée plusieurs fois et tire au hasard différentes espèces pour créer un nouvel alignement remanié, qu’IQTREE utilise ensuite pour construire un nouvel arbre. Ce processus est répété de nombreuses fois jusqu’à ce que nous obtenions un score indiquant combien de fois chaque branche de notre arbre initial se retrouve dans les arbres répliqués par bootstrap.  Les valeurs bootstrap d’un arbre phylogénétique indiquent, sur 100, combien de fois la même branche est observée lors de la répétition de la génération d’un arbre phylogénétique sur un ensemble de données rééchantillonnées. Effectuons 1000 répétitions bootstrap</p>
+<pre><code>[orkin@login1 5_Phylogenetics]$ iqtree2 -s primate_mitogenomes.aligned.gb.fasta -m GTR+F+I+G4 -bb 1000 -pre primate_mitogenomes.aligned.gb.mod.bs --undo
+</code></pre>
+<p>Ici, l’option --undo indique que nous voulons utiliser l’arbre précédent et juste changer quelques options dans la commande. Maintenant, téléchargeons le nouvel arbre et ouvrons-le dans figtree pour voir les étiquettes bootstrap sur les nœuds de l’arbre.</p>
+<p>Vous pouvez voir que la plupart des nœuds ont des scores de bootstrap de 100. Cela signifie que dans les 1000 répliques de l’arbre, IQTREE a trouvé la même division. Par exemple, les humains sont toujours plus étroitement liés aux deux espèces de chimpanzés qu’aux gorilles. Cependant, IQTREE a eu un peu plus de difficultés à placer les lapins et les musaraigne arboricole (tree shrews, <em>Tupaia</em>). Il en va de même pour le singe hurleur et le singe araignée. En général, la règle veut que vous ayez une valeur bootstrap d’au moins 95 pour faire confiance à la division.</p>
+<p>Dans l’ensemble, cet arbre est bien résolu, mais il n’est pas parfait. N’oubliez pas que nous n’utilisons ici que l’ADN mitochondrial. Nous serions probablement plus confiants si nous utilisions simultanément de nombreuses régions génétiques différentes. Il est tout de même remarquable que nous puissions identifier correctement la relation phylogénétique entre les primates avec une si petite quantité d’informations !</p>
+<hr>
+<p><strong>Problème 6 : Phylogénétique</strong></p>
+<p>Pour chaque question (sauf 5 et 8), copiez chaque ligne de code que vous avez utilisée (pas le résultat) dans la case du devoir sur StudiUM.</p>
+<ol>
+<li>
+<p>Téléchargez le fichier <a href="https://raw.githubusercontent.com/nomascus/ANT3814/main/FILES/DNA/primate_mitogenomes.fasta">https://raw.githubusercontent.com/nomascus/ANT3814/main/FILES/DNA/primate_mitogenomes.fasta</a>. Utilisez bash pour imprimer les en-têtes de chaque espèce dans le fichier primate_mitogenomes.fasta.</p>
+</li>
+<li>
+<p>Téléchargez les séquences nucléotidiques du gène MYH1 de 5 primates et d’un mammifère non primate (à utiliser comme outgroup). Veillez à les télécharger au format fasta. Pour télécharger ces fichiers sur l’ordinateur cloud, nous utilisons également la commande scp mais en changeant l’ordre du fichier et de la destination.</p>
+</li>
+</ol>
+<p>Vous pouvez soit ouvrir une nouvelle fenêtre powershell, soit vous déconnecter de l’ordinateur cloud à l’aide de la commande <code>exit</code>. Vous pouvez trouver l’emplacement des fichiers téléchargés dans l’explorateur Windows ou le finder Mac, mais c’est probablement quelque chose comme C:/Users/votre-nom-sur-votre-ordinateur-personnel/Downloads sur un PC ou ~/Downloads sur un Mac. Vous pouvez utiliser les commandes <code>cd</code> et <code>ls</code> dans powershell sur votre propre ordinateur comme sur le cloud pour savoir où vous êtes. Une fois que vous êtes dans le répertoire où vous avez téléchargé les fichiers, vous pouvez les uploader sur l’ordinateur cloud avec scp comme ceci :</p>
+<p><code>scp file-on-your-computer userid@server-location:chemin-vers-fichier-sur-serveur</code></p>
+<p>par exemple, quelque chose comme ceci, mais remplacez userid par votre userid</p>
+<p><code>scp MYH1_gorilla.fasta userid@ant3814.calculquebec.cloud:/home/userid/projects/def-sponsor00/userid/5_Phylogenetics</code></p>
+<p>Si l’ordinateur vous demande quelque chose à propos d’une « empreinte digitale », tapez « oui ».</p>
+<ol start="3">
+<li>
+<p>Concaténer les 6 fastas en un seul fasta</p>
+</li>
+<li>
+<p>Alignez vos séquences fasta avec mafft</p>
+</li>
+<li>
+<p>Ouvrez le fichier d’alignement dans AliView et trouvez une région conservée et une région variable. Faites une capture d’écran de chaque région et collez-la ici.</p>
+</li>
+<li>
+<p>Nettoyez l’alignement avec Gblocks</p>
+</li>
+<li>
+<p>Construire un arbre du maximum de vraisemblance avec IQTREE en utilisant 1000 bootstraps.</p>
+</li>
+<li>
+<p>Ouvrir l’arbre dans figtree, le ré-enraciner en utilisant l’outgroup, et ajouter les valeurs bootstrap. Collez une capture d’écran de l’arbre ici.</p>
+</li>
+</ol>
+<p><strong>NOTE</strong> : si vous êtes bloqué avec la commande scp pour question 2, vous pouvez télécharger des fichiers MYH1 à l’aide de wget à partir d’ici. Cependant, essayez de faire fonctionner la commande scp et incluez le code que vous pensez devoir utiliser dans la boîte à questions sur StudiUM.</p>
+<p><a href="https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/FILES/Phylogeny/MYH1_callithrix.fasta">https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/FILES/Phylogeny/MYH1_callithrix.fasta</a><br>
+<a href="https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/FILES/Phylogeny/MYH1_chimp.fasta">https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/FILES/Phylogeny/MYH1_chimp.fasta</a><br>
+<a href="https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/FILES/Phylogeny/MYH1_cebus.fasta">https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/FILES/Phylogeny/MYH1_cebus.fasta</a><br>
+<a href="https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/FILES/Phylogeny/MYH1_human.fasta">https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/FILES/Phylogeny/MYH1_human.fasta</a><br>
+<a href="https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/FILES/Phylogeny/MYH1_macaque.fasta">https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/FILES/Phylogeny/MYH1_macaque.fasta</a><br>
+<a href="https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/FILES/Phylogeny/MYH1_mouse.fasta">https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/FILES/Phylogeny/MYH1_mouse.fasta</a></p>
+</div>
+</body>
+
+</html>
