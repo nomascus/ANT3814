@@ -20,7 +20,7 @@ library(ggplot2)
 
 snps <- eigenstrat(
   ind = "snps/snps.ind", 
-  snp = "snp/snps.snp", 
+  snp = "snps/snps.snp", 
   geno = "snps/snps.geno")
 
 ```
