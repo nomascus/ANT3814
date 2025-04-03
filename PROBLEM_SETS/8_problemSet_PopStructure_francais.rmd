@@ -102,17 +102,16 @@ ggplot(pca, aes(x= PC1, y = PC2, color = espece, shape = lieu)) +geom_point(size
 
 > QUESTIONS 
 
-#1: Quel pourcentage de la variance totale est expliqué par les premier et deuxième composants principaux?
+#1 : Quel pourcentage de la variance totale est expliqué par les première et deuxième composantes principales ?
 
-#2: Quelle variable est la mieux séparée par PC1 et quelle variable est la mieux séparée par PC2?
+#2 : L'une ou l'autre variable est-elle clairement séparée le long de la PC1 ou de la PC2 ?
 
-#3: Les espèces expliquent-elles plus de variance dans les données ou le lieu d'échantillonnage?
+#3 : Quel groupe d'échantillons se distingue des trois autres groupes ?
 
-#4: Quel groupe d'échantillons se regroupe séparément des trois autres groupes?
+#4 : Le groupe d'échantillons de la question 3 pourrait-il appartenir à une espèce distincte ? Pourquoi ?
 
-#5: Refaites le graphique, mais cette fois placez PC 2 sur l'axe des X et PC 3 sur l'axe des Y. Collez le code ggplot ici.
+#5 : Refaire le graphique, mais cette fois en plaçant PC2 sur l'axe X et PC3 sur l'axe Y. Collez le code ggplot ici.
 
-#6: En retirant le premier composant principal, pouvez-vous voir plus clairement la séparation par espèce? Cela change-t-il votre interprétation des données?
+#6 : En supprimant la première composante principale, pouvez-vous voir plus clairement la séparation par espèce ? Cela change-t-il votre interprétation des données ?
 
-#7: Il y a 16 échantillons au total dans l'ensemble de données et 4 groupes. Est-ce suffisamment de données pour identifier clairement la séparation de 2 variables? Si vous conceviez une nouvelle étude sur ces poissons, que recommanderiez-vous pour mieux comprendre leur structure génétique des populations?
-
+#7 : Il y a 16 échantillons au total dans l'ensemble de données et 4 groupes. Ces données sont-elles suffisantes pour identifier clairement la séparation de deux variables ? Si vous deviez concevoir une nouvelle étude sur ces poissons, que recommanderiez-vous pour mieux comprendre la structure génétique de leur population ?
