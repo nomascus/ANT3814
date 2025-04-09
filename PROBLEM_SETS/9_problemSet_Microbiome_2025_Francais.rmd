@@ -1,0 +1,306 @@
+---
+title: "ANT3814: Microbiome"
+output: html_document
+date: "2025-04-09"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Installer et charger les packages
+
+```{r}
+
+install.packages("tidyverse")
+install.packages("vegan")
+install.packages("BiocManager")
+
+if(!requireNamespace("BiocManager")){
+  install.packages("BiocManager")
+}
+
+BiocManager::install("phyloseq")
+
+
+library(tidyverse); library(vegan); library(phyloseq)
+
+```
+
+# Click on the Terminal button in the bottom left window and enter the following text
+
+mkdir projects/def-sponsor00/$USER/9_Microbiome
+
+cd projects/def-sponsor00/$USER/9_Microbiome
+
+wget https://github.com/nomascus/ANT3814/raw/refs/heads/main/PROBLEM_SETS/ANT3814_ps.rds
+
+wget https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/PROBLEM_SETS/ANT3814_Microbiome_francais.Rmd
+
+
+# Cliquez sur le bouton Console dans la fenêtre en bas à gauche et entrez le texte suivant, mais remplacez orkin par votre ID utilisateur.
+
+setwd("~/projects/def-sponsor00/orkin/9_Microbiome")
+
+> Chargement de l'objet au format phyloseq et nettoyage des noms
+
+```{r}
+
+# Charger le jeu de données ANT3814_ps.rds dans le studio R.
+
+ANT3814_ps <- readRDS("ANT3814_ps.rds")
+
+# Le code de ce bloc nettoie les noms de taxonomie désordonnés dans l'ensemble de données afin qu'ils soient lus ASV_001, ASV_002, etc.
+
+ANT3814_ps_rename <- ANT3814_ps
+n_seqs <- seq(ntaxa(ANT3814_ps_rename))
+len_n_seqs <- nchar(max(n_seqs))
+taxa_names(ANT3814_ps_rename) <- paste("ASV", formatC(n_seqs, 
+                                            width = len_n_seqs, 
+                                            flag = "0"), sep = "_")
+
+
+ANT3814_ps <- ANT3814_ps_rename
+taxa_names(ANT3814_ps)
+
+```
+
+> Examinons les données 
+
+
+```{r}
+
+# Visualiser les métadonnées 
+view(sample_data(ANT3814_ps))
+
+# Visualiser les différents types de microbes dans l'ensemble de données
+TAXONOMY_TABLE <-tax_table(ANT3814_ps)
+view(TAXONOMY_TABLE)
+
+# Afficher le nombre de chaque type de microbe dans chaque échantillon 
+OTU_TABLE <-otu_table(ANT3814_ps)
+view(OTU_TABLE)
+
+# Afficher le nombre de lectures de séquençage dans chaque échantillon
+sort(sample_sums(ANT3814_ps))
+
+
+```
+
+# QUESTION 1 : Qu'est-ce que ASV_228 ? Dans combien d'échantillons se trouve-t-il ? Pouvons-nous identifier avec certitude son espèce ?
+
+# QUESTION 2 : Qu'est-ce que l'ASV_221 ? Dans combien d'échantillons se trouve-t-il ? Pouvons-nous identifier avec certitude son espèce ?
+
+# QUESTION 3 : Combien d'échantillons ont plus de 1000 reads de séquençage ?
+
+> Réaliser une courbe de raréfaction du nombre d'ASV pour chaque échantillon. Cela montre combien de nouveaux ASV sont trouvés pour plus de séquençage de l'ADN.  
+
+```{r}
+
+sort(sample_sums(ANT3814_ps))
+tab <- otu_table(ANT3814_ps)
+class(tab) <- " matrix " # as.matrix() ne fera rien
+## vous recevez un avertissement ici, mais c'est ce que nous devons avoir
+tab <- t(tab) # transpose les observations en lignes
+
+rarecurve(tab, step=50, lwd=2, ylab= "Nombre d'ASV", label=F, cex=0.5)
+
+```
+
+# QUESTION 4 : En général, autour de quel nombre de lectures de séquençage (la valeur sur l'axe X) le nombre d'ASV se stabilise-t-il ? 
+
+
+> Rationnalisons l'ensemble de données à 1103 lectures de séquençage (à l'exclusion de 3 échantillons). Cela permettra de sélectionner aléatoirement 1103 lectures de séquençage dans chaque échantillon pour permettre une comparaison uniforme de la diversité microbienne dans tous les échantillons.
+
+```{r}
+
+set.seed(111) # garder le résultat reproductif
+ps.rarefied = rarefy_even_depth(ANT3814_ps, rngseed=1, sample.size=1103, replace=F)
+ps.rarefied #La profondeur de séquençage des 31 échantillons restants est de 1103.
+
+sort(sample_sums(ps.rarefied))
+
+```
+
+# QUESTION 5 : Combien d'échantillons ont MOINS de 1000 lectures de séquençage dans l'ensemble de données raréfiées ?
+
+> La diversité alpha de Shannon tient compte à la fois de la richesse et de l'abondance des ASV dans chaque échantillon. Les diagrammes en boîte ci-dessous montrent la valeur de la diversité alpha pour chaque échantillon regroupé en fonction du site corporel où il a été prélevé.
+
+```{r}
+
+plot_richness(ps.rarefied, x="body.site", measures= 'Shannon', color = 'body.site') +
+  geom_boxplot() +
+  theme_classic() +
+  theme(strip.background = element_blank(), axis.text.x.bottom = element_text(angle = -90))
+
+```
+
+# QUESTION 6 : Quel type de corps semble avoir la plus faible diversité alpha ?
+
+> Testons la présence d'une différence significative dans la diversité alpha de chaque site corporel à l'aide de tests de somme des rangs de Wilcoxon par paire. Étant donné que nous effectuons des tests multiples, nous devons corriger la valeur p à l'aide de la méthode du taux de fausse découverte (FDR).
+
+```{r}
+
+rich = estimate_richness(ps.rarefied, measures = "Shannon")
+wilcox.shannon <- pairwise.wilcox.test(rich$Shannon, 
+                                       sample_data(ps.rarefied)$body.site, 
+                                       p.adjust.method = "BH")
+
+tab.shannon <- wilcox.shannon$p.value %>%
+  as.data.frame() %>%
+  tibble::rownames_to_column(var = "group1") %>%
+  gather(key="group2", value="p.adj", -group1) %>%
+  na.omit()
+tab.shannon
+
+```
+
+# QUESTION 7 : En utilisant un seuil de valeur p ajustée de 0,05, quelles paires de sites d'échantillonnage ont des niveaux de diversité alpha significativement différents ?
+
+> Diversité bêta
+
+# La mesure de la diversité bêta évalue la dissimilarité entre les écosystèmes, vous indiquant dans quelle mesure une communauté est différente d'une autre. Voici quelques codes de démonstration utilisant les mesures de distance de Bray Curtis et de Jaccard binaire. 
+
+# PCoA et PERMANOVA/ADONIS
+
+```{r}
+
+#La distance de Bray Curtis est utilisée de manière superposée, nous spécifions donc le package par phyloseq::distance
+
+dist = phyloseq::distance(ps.rarefied, method="bray")
+ordination = ordinate(ps.rarefied, method="PCoA", distance=dist)
+
+plot_ordination(ps.rarefied, ordination, color="body.site", shape='body.site') + 
+  theme_classic() +
+  theme(strip.background = element_blank())
+
+```
+
+# QUESTION 8 : En examinant le graphique de la diversité bêta, combien de groupes principaux voyez-vous ? En général, lesquels des quatre types d'échantillons sont les plus similaires ?
+
+# QUESTION 9 : Remarquez le point carré bleu dans l'amas rouge et le point triangle vert dans l'amas violet. Que pensez-vous qu'il se soit passé ici ? 
+
+> PERMANOVA/ADONIS
+
+```{r}
+
+# ADONIS 
+
+metadata <- data.frame(sample_data(ps.rarefied))
+test.adonis <- adonis2(dist ~ body.site, data = metadata)
+test.adonis
+
+
+```
+
+# QUESTION 10 : Un test « adonis » est une analyse de variance utilisant des matrices de distance. Il teste la présence d'une différence significative dans les positions des grappes parmi les sites du corps. Les groupes de sites corporels sont-ils significativement différents les uns des autres ? Comment le savez-vous ?
+
+```{r}
+
+#PAIRWISE PERMANOVA
+
+cbn <- combn(x=unique(metadata$body.site), m = 2)
+p <- c()
+
+for(i in 1:ncol(cbn)){
+  ps.subs <- subset_samples(ps.rarefied, body.site %in% cbn[,i])
+  metadata_sub <- data.frame(sample_data(ps.subs))
+  permanova_pairwise <- adonis2(phyloseq::distance(ps.subs, method = "bray") ~ body.site, 
+                                data = metadata_sub)
+  p <- c(p, permanova_pairwise$`Pr(>F)`[1])
+}
+
+p.adj <- p.adjust(p, method = "BH")
+p.table <- cbind.data.frame(t(cbn), p=p, p.adj=p.adj)
+p.table
+
+```
+
+# QUESTION 11 : Dans le test PERMANOVA par paire, nous cherchons à savoir quelles paires de sites corporels (s'il y en a) ont des communautés microbiennes significativement différentes. En regardant la colonne de la valeur p ajustée (p.adj) dans p.table, les communautés microbiologiques de quels sites corporels sont significativement différentes l'une de l'autre ? 
+
+> Bargraphes d'abondance relative
+
+```{r}
+
+# Normaliser l'ensemble des données en transformant les abondances ASV en abondances relatives 
+
+ps.rel = transform_sample_counts(ANT3814_ps, function(x) x/sum(x)*100)
+
+# Agglomérer les ASV au niveau de l'embranchement
+
+glom <- tax_glom(ps.rel, taxrank = 'Phylum', NArm = FALSE)
+ps.melt <- psmelt(glom)
+
+# changer en caractère pour un niveau facile à ajuster
+
+ps.melt$Phylum <- as.character(ps.melt$Phylum)
+
+ps.melt <- ps.melt %>%
+  group_by(body.site, Phylum) %>%
+  mutate(median=median(Abundance))
+
+# sélectionner le groupe médiane > 1
+
+keep <- unique(ps.melt$Phylum[ps.melt$median > 1])
+ps.melt$Phylum[ !(ps.melt$Phylum %in% keep)] <- « < 1% »
+
+#pour obtenir les mêmes lignes ensemble
+
+ps.melt_sum <- ps.melt %>%
+  group_by(Sample,body.site,Phylum) %>%
+  summarise(Abundance=sum(Abundance))
+
+ggplot(ps.melt_sum, aes(x = Sample, y = Abundance, fill = Phylum)) + 
+  geom_bar(stat = ' identité ', aes(fill=Phylum)) + 
+  labs(x=' Échantillon ', y=« Pourcentage du total des ASV (Phylum) ») +
+
+  facet_wrap(~body.site, scales= "free_x", nrow=1) +
+  theme_classic() + 
+  theme(strip.background = element_blank(), 
+        axis.text.x.bottom = element_text(angle = -90))
+
+```
+
+# Chaque colonne représente un échantillon différent, et l'abondance relative d'un phylum dans un échantillon est codée en couleur par la barre. Lorsque l'on examine les abondances des embranchements, quel type d'échantillon est le plus différent ? 
+
+> Abondance relative des genres
+
+```{r}
+
+# Normaliser l'ensemble des données en transformant les abondances ASV en abondances relatives 
+
+ps.rel = transform_sample_counts(ANT3814_ps, function(x) x/sum(x)*100)
+
+# agglomérer les ASV au niveau du genre
+glom <- tax_glom(ps.rel, taxrank = 'Genus', NArm = FALSE)
+ps.melt <- psmelt(glom)
+
+# changer en caractère pour un niveau facile à ajuster
+ps.melt$Genus <- as.character(ps.melt$Genus)
+
+ps.melt <- ps.melt %>%
+  group_by(body.site, Genus) %>%
+  mutate(median=median(Abundance))
+# sélectionner le groupe moyenne > 1
+keep <- unique(ps.melt$Genus[ps.melt$médiane > 2.5])
+ps.melt$Genus[ !(ps.melt$Genus %in% keep)] <- ' < 2.5% '
+#pour obtenir les mêmes lignes ensemble
+ps.melt_sum <- ps.melt %>%
+  group_by(Sample,body.site,Genus) %>%
+  summarise(Abundance=sum(Abundance))
+
+ggplot(ps.melt_sum, aes(x = Sample, y = Abundance, fill = Genus)) + 
+  geom_bar(stat = ' identity ', aes(fill=Genus)) + 
+  labs(x=« Sample », y=' Percent of total ASVs (Genus) ') +
+  facet_wrap(~body.site, scales= « free_x », nrow=1) +
+  theme_classic() + 
+  theme(legend.position = ' right ', 
+        strip.background = element_blank(), 
+        axis.text.x.bottom = element_text(angle = -90))
+
+```
+
+
+# QUESTION 13 : Nous pouvons voir ici l'abondance relative de chaque GENRE microbien. Par rapport à ce que nous avons vu pour les phyla microbiens, comment la variation des communautés microbiennes des sites corporels diffère-t-elle au niveau des genres ? D'une manière générale, quelles sont les zones du corps qui se ressemblent et celles qui diffèrent ?
+
+
