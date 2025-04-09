@@ -8,7 +8,24 @@ date: "2025-04-09"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Installer et charger les packages
+
+# 1) Cliquez sur le bouton Terminal dans la fenêtre en bas à gauche et entrez le texte suivant
+
+mkdir projects/def-sponsor00/$USER/9_Microbiome
+
+cd projects/def-sponsor00/$USER/9_Microbiome
+
+wget https://github.com/nomascus/ANT3814/raw/refs/heads/main/PROBLEM_SETS/ANT3814_ps.rds
+
+wget https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/PROBLEM_SETS/9_problemSet_Microbiome_Francais.rmd
+
+
+# 2) Cliquez sur le bouton Console dans la fenêtre en bas à gauche et entrez le texte suivant, mais remplacez orkin par votre ID utilisateur.
+
+setwd("~/projects/def-sponsor00/orkin/9_Microbiome")
+
+
+# 3) Installer et charger les packages # NE LE FAITES QU'UNE SEULE FOIS. Il n'est pas nécessaire de répéter
 
 ```{r}
 
@@ -22,25 +39,17 @@ if(!requireNamespace("BiocManager")){
 
 BiocManager::install("phyloseq")
 
+```
+
+
+>  Charger les packages
+
+```{r}
 
 library(tidyverse); library(vegan); library(phyloseq)
 
 ```
 
-# Click on the Terminal button in the bottom left window and enter the following text
-
-mkdir projects/def-sponsor00/$USER/9_Microbiome
-
-cd projects/def-sponsor00/$USER/9_Microbiome
-
-wget https://github.com/nomascus/ANT3814/raw/refs/heads/main/PROBLEM_SETS/ANT3814_ps.rds
-
-wget https://raw.githubusercontent.com/nomascus/ANT3814/refs/heads/main/PROBLEM_SETS/ANT3814_Microbiome_francais.Rmd
-
-
-# Cliquez sur le bouton Console dans la fenêtre en bas à gauche et entrez le texte suivant, mais remplacez orkin par votre ID utilisateur.
-
-setwd("~/projects/def-sponsor00/orkin/9_Microbiome")
 
 > Chargement de l'objet au format phyloseq et nettoyage des noms
 
@@ -242,7 +251,7 @@ ps.melt <- ps.melt %>%
 # sélectionner le groupe médiane > 1
 
 keep <- unique(ps.melt$Phylum[ps.melt$median > 1])
-ps.melt$Phylum[ !(ps.melt$Phylum %in% keep)] <- « < 1% »
+ps.melt$Phylum[ !(ps.melt$Phylum %in% keep)] <- ' < 1% '
 
 #pour obtenir les mêmes lignes ensemble
 
@@ -251,8 +260,8 @@ ps.melt_sum <- ps.melt %>%
   summarise(Abundance=sum(Abundance))
 
 ggplot(ps.melt_sum, aes(x = Sample, y = Abundance, fill = Phylum)) + 
-  geom_bar(stat = ' identité ', aes(fill=Phylum)) + 
-  labs(x=' Échantillon ', y=« Pourcentage du total des ASV (Phylum) ») +
+  geom_bar(stat = 'identity', aes(fill=Phylum)) + 
+  labs(x=' Échantillon ', y=' Pourcentage du total des ASV (Phylum) ') +
 
   facet_wrap(~body.site, scales= "free_x", nrow=1) +
   theme_classic() + 
@@ -282,7 +291,7 @@ ps.melt <- ps.melt %>%
   group_by(body.site, Genus) %>%
   mutate(median=median(Abundance))
 # sélectionner le groupe moyenne > 1
-keep <- unique(ps.melt$Genus[ps.melt$médiane > 2.5])
+keep <- unique(ps.melt$Genus[ps.melt$median > 2.5])
 ps.melt$Genus[ !(ps.melt$Genus %in% keep)] <- ' < 2.5% '
 #pour obtenir les mêmes lignes ensemble
 ps.melt_sum <- ps.melt %>%
@@ -290,11 +299,11 @@ ps.melt_sum <- ps.melt %>%
   summarise(Abundance=sum(Abundance))
 
 ggplot(ps.melt_sum, aes(x = Sample, y = Abundance, fill = Genus)) + 
-  geom_bar(stat = ' identity ', aes(fill=Genus)) + 
-  labs(x=« Sample », y=' Percent of total ASVs (Genus) ') +
-  facet_wrap(~body.site, scales= « free_x », nrow=1) +
+  geom_bar(stat = 'identity', aes(fill=Genus)) + 
+  labs(x=' Sample ', y=' Percent of total ASVs (Genus) ') +
+  facet_wrap(~body.site, scales= 'free_x', nrow=1) +
   theme_classic() + 
-  theme(legend.position = ' right ', 
+  theme(legend.position = 'right', 
         strip.background = element_blank(), 
         axis.text.x.bottom = element_text(angle = -90))
 
@@ -302,5 +311,6 @@ ggplot(ps.melt_sum, aes(x = Sample, y = Abundance, fill = Genus)) +
 
 
 # QUESTION 13 : Nous pouvons voir ici l'abondance relative de chaque GENRE microbien. Par rapport à ce que nous avons vu pour les phyla microbiens, comment la variation des communautés microbiennes des sites corporels diffère-t-elle au niveau des genres ? D'une manière générale, quelles sont les zones du corps qui se ressemblent et celles qui diffèrent ?
+
 
 
